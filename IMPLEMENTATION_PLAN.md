@@ -68,6 +68,6 @@ harness-lab의 `benchmark/tasks.json`과 로컬 평가 연결 방식을 확인�
 | 3 코딩·권한 | R04·R05 / A03·A04 | `write_file`·`edit_file`·`run_command`, 승인 전 검사(`TOOL_PRECHECKS`), diff 표시, `SYSTEM_PROMPT`, `files_changed`, `work/checker.py`와 테스트 7건 | **A03·A04 PASS**(실제 모델). A03은 **네 번째 시도**에서 통과 | 실패 3건이 전부 **내 하네스의 결함**을 드러냈다: `write_file` 전체 덮어쓰기, 헛된 승인, 승인 대기가 타임아웃에 포함, 실패가 "성공"으로 표시. 모두 고치고 회귀 테스트를 붙였다 |
 | 4 세션 | R06 / A08·A09 | `SessionStore` 저장·복원, `revive_messages`, 민감정보 가림 | **A08·A09 PASS**(실제 모델, 도구 0회로 앞 대화 근거 답변) | 첫 시도 실패(저장·복원 타입 불일치) → 수정 후 통과. `tests/test_session.py` 7건으로 회귀 방지 |
 | 5 추가 제공자 | R07 / A10 | `OpenAICompatProvider`, `--provider vllm` 옵션, Colab vLLM + Cloudflare Tunnel | **A10 PASS**. 30.22초(로컬 2.3B는 146.6초) | 하네스 코드는 바뀌지 않았다. 서버 기동에 한 번 실패했고(KV 캐시 인자) 원인·조치를 기록했다. ngrok 대신 Cloudflare 를 썼다 — 2시간 제한이 없다 |
-| 6 벤치마크 | R08 / A11·A12 | harness-lab 연결, 기준 측정·개선·재측정 | **미착수** | `keep_alive` 설정이 측정 조건에 영향을 준다. 실행 시 설정으로 기록할 것 |
+| 6 벤치마크 | R08 / A11·A12 | `src/harness/benchmark.py` 어댑터, `run_python` 도구, `tests/test_benchmark.py` 13건, harness-lab 준비·`--dry-run` 확인 | **연결 완료 · 측정은 NOT_RUN** | 실행만 남았으나 쓸 수 있는 모델(2.3B CPU·4B T4)로는 0/10 이 예상되어 중단했다. 판단 근거와 이어갈 명령은 `ACCEPTANCE.md` 의 "A11·A12 중단 판단" 에 적었다 |
 
 설계 변경은 PRD와 인터페이스, 완료 조건에도 반영한다. 코드가 먼저 바뀌어 명세와 충돌했다면 어느 쪽이 사용자 의도에 맞는지 판단한다.

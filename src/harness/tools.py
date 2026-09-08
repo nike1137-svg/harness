@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -217,6 +218,79 @@ def edit_file(
             "bytes_written": len(new_string.encode("utf-8")),
         },
     )
+
+
+def run_python(
+    work_root: Path,
+    arguments: dict[str, Any],
+    limits: Limits = DEFAULT_LIMITS,
+) -> ToolResult:
+    """작업 폴더 안의 .py 파일을 지금 쓰는 파이썬으로 실행한다.
+
+    `python -c "..."` 처럼 인라인 코드를 받지 않는다. 파일만 실행한다.
+    코드를 돌리려면 먼저 write_file 로 파일을 만들어야 하고, 그러면
+    무엇을 돌리는지 승인 화면에 남는다.
+
+    run_command 와 따로 둔 이유: run_command 의 허용 목록에 python 을
+    넣으면 ["python", "-c", "아무 코드"] 가 통과한다. 그건 셸을 막아 둔
+    의미를 없앤다. (D05)
+    """
+    target = resolve_inside(work_root, arguments.get("path"))
+
+    if target.suffix != ".py":
+        raise ToolError("BAD_ARGUMENTS", f".py 파일만 실행합니다: {arguments.get('path')}")
+    if not target.is_file():
+        raise ToolError("FILE_NOT_FOUND", f"파일을 찾지 못했습니다: {arguments.get('path')}")
+
+    script_args = arguments.get("args", [])
+    if script_args is None:
+        script_args = []
+    if not isinstance(script_args, list) or not all(
+        isinstance(item, str) for item in script_args
+    ):
+        raise ToolError("BAD_ARGUMENTS", "args 는 문자열 목록이어야 합니다.")
+
+    try:
+        completed = subprocess.run(
+            [sys.executable, str(target), *script_args],
+            cwd=work_root,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=limits.tool_timeout_seconds,
+            shell=False,
+        )
+    except subprocess.TimeoutExpired:
+        raise ToolError(
+            "TIMEOUT", f"{limits.tool_timeout_seconds}초 안에 끝나지 않아 중단했습니다."
+        ) from None
+
+    limit = limits.max_tool_output_chars
+    stdout = (completed.stdout or "")[:limit]
+    stderr = (completed.stderr or "")[:limit]
+
+    return ToolResult(
+        ok=completed.returncode == 0,
+        payload={
+            "path": _relative(work_root, target),
+            "args": script_args,
+            "exit_code": completed.returncode,
+            "stdout": stdout,
+            "stderr": stderr,
+            "truncated": len(completed.stdout or "") > limit
+            or len(completed.stderr or "") > limit,
+        },
+    )
+
+
+def precheck_python(work_root: Path, arguments: dict[str, Any]) -> None:
+    """승인을 묻기 전에 실행할 파일이 있는지, .py 인지 본다."""
+    target = resolve_inside(work_root, arguments.get("path"))
+    if target.suffix != ".py":
+        raise ToolError("BAD_ARGUMENTS", f".py 파일만 실행합니다: {arguments.get('path')}")
+    if not target.is_file():
+        raise ToolError("FILE_NOT_FOUND", f"파일을 찾지 못했습니다: {arguments.get('path')}")
 
 
 def precheck_edit(work_root: Path, arguments: dict[str, Any]) -> None:
@@ -460,6 +534,33 @@ TOOL_DEFINITIONS.extend(
         {
             "type": "function",
             "function": {
+                "name": "run_python",
+                "description": (
+                    "작업 폴더 안의 .py 파일을 실행한다. 사용자 승인이 필요하다. "
+                    "인라인 코드나 셸 명령은 실행할 수 없다 — 코드를 돌리려면 "
+                    "먼저 write_file 로 파일을 만들어라. "
+                    "종료 코드가 0이 아니면 실패이며, 그때는 stdout 과 stderr 를 읽고 원인을 판단하라."
+                ),
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "작업 폴더 기준 상대 경로의 .py 파일. 예: solve.py",
+                        },
+                        "args": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "스크립트에 넘길 인자 목록. 없으면 빈 목록.",
+                        },
+                    },
+                    "required": ["path"],
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
                 "name": "run_command",
                 "description": (
                     "허용된 명령을 작업 폴더에서 실행한다. 사용자 승인이 필요하다. "
@@ -492,6 +593,7 @@ TOOL_HANDLERS = {
     "list_files": list_files,
     "write_file": write_file,
     "edit_file": edit_file,
+    "run_python": run_python,
     "run_command": run_command,
 }
 
@@ -501,5 +603,6 @@ TOOL_HANDLERS = {
 TOOL_PRECHECKS = {
     "edit_file": precheck_edit,
     "write_file": precheck_write,
+    "run_python": precheck_python,
     "run_command": precheck_command,
 }

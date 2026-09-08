@@ -24,7 +24,7 @@ from .session import Recorder
 from .tools import TOOL_DEFINITIONS, TOOL_HANDLERS, TOOL_PRECHECKS, ToolError
 
 # 승인을 받아야 하는 도구. 읽기는 경로 검사만으로 통과한다. (D06)
-APPROVAL_REQUIRED = {"write_file", "edit_file", "run_command"}
+APPROVAL_REQUIRED = {"write_file", "edit_file", "run_python", "run_command"}
 
 
 class TaskState(str, Enum):

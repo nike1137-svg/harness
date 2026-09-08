@@ -106,6 +106,12 @@ def make_approver(work_root: Path):
             show_write_diff(work_root, request.arguments)
         elif request.name == "edit_file":
             show_edit(request.arguments)
+        elif request.name == "run_python":
+            print(f"  실행할 파일: {request.arguments.get('path')}")
+            args = request.arguments.get("args") or []
+            print(f"  넘길 인자:   {json.dumps(args, ensure_ascii=False)}")
+            print(f"  실행 위치:   {work_root}")
+            print("  (인라인 코드가 아니라 이 파일을 그대로 실행합니다)")
         elif request.name == "run_command":
             argv = request.arguments.get("argv")
             print(f"  실행할 명령: {json.dumps(argv, ensure_ascii=False)}")
