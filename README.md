@@ -1,38 +1,111 @@
-# 내 에이전트 하네스 설계 키트
-완성 소스를 복제하는 자료가 아니라, 제품 명세를 채우고 AI와 구현하는 출발점입니다. 하네스는 모델 호출, 도구 실행, 권한, 상태와 종료를 관리하는 프로그램입니다.
+# 블로그 글 점검 하네스
 
-## 시작
-압축을 풀고 이 README.md가 있는 폴더를 Claude Code 또는 OpenCode에서 엽니다. 다음처럼 요청합니다.
+블로그 글의 front matter 규칙 위반과 깨진 링크를 찾는 개인 에이전트 하네스다.
+모델에게 도구를 주고, 도구 요청을 검사·실행하고, 결과를 다시 모델에게 돌려주는
+반복을 직접 구현했다. 그 반복을 다른 에이전트 도구에 맡기지 않는다.
 
-> 이 PRD를 읽고 같이 구체화하자. 결정이 필요한 것부터 물어봐 줘.
+## 무엇을 하는가
 
-첫 응답에서 AI가 이미 정해진 목표와 미결정 사항을 구분하고 질문하는지 봅니다. 바로 코드를 만들거나 임의로 언어를 정하면 다음처럼 요청합니다.
+```
+harness run "posts 폴더의 글을 점검해줘"
+   ↓
+모델이 read_file / list_files 를 요청
+   ↓
+경로가 work/ 안쪽인지 코드가 검사
+   ↓
+실행 → 결과를 대화에 넣고 다시 모델 호출
+   ↓
+위반 목록 또는 "문제 없음"
+```
 
-> AGENTS.md와 PRD.md를 읽고, 내가 결정할 부분부터 질문해 줘.
+코드를 고칠 때는 변경 전후를 보여 주고 승인을 받은 뒤 적용하며, 지정한 테스트를 돌려 확인한다.
 
-답변은 짧게 해도 됩니다. AI가 문서를 고친 뒤 중요한 선택이 내 답과 맞는지 확인합니다. PRD 자체가 질문을 강제하는 기능은 아닙니다. 프로젝트 지침과 시작 요청으로 이 협업 방식을 안내합니다.
+## 실행
 
-## 문서 역할
-| 파일 | 읽거나 채우는 내용 |
+Python 3.12 와 [uv](https://docs.astral.sh/uv/) 가 필요하다.
+
+```bash
+uv sync                 # 가상환경과 의존성
+uv run pytest -q        # 하네스 자체 테스트
+```
+
+### 로컬 모델로 (개발용)
+
+[Ollama](https://ollama.com/) 가 돌고 있어야 한다. 도구 호출을 지원하는 모델이 필요하다.
+
+```bash
+ollama pull qwen3.5:2b
+uv run harness run "posts/2026-01-01-ok.md 의 front matter 를 알려줘"
+```
+
+### Colab GPU 모델로 (검증·벤치마크용)
+
+Colab에서 vLLM을 OpenAI 호환 서버로 띄우고 터널로 연결한다.
+
+```bash
+uv run harness run "..." --provider vllm --base-url "https://<터널주소>"
+```
+
+### 세션 이어가기
+
+```bash
+uv run harness sessions                          # 저장된 세션 목록
+uv run harness run "아까 그 파일에서 tags만" --session <id>
+```
+
+## 폴더 구조
+
+```
+work/                     도구가 접근할 수 있는 유일한 폴더
+├── posts/                점검 대상 마크다운 (정상 1 + 결함 3)
+├── checker.py            규칙 검사 함수
+└── tests/                checker.py 의 테스트
+src/harness/
+├── cli.py                명령 해석, 승인 프롬프트, 진행 출력
+├── agent.py              반복 루프 · 한도 · 작업 상태
+├── providers.py          Ollama · OpenAI호환 어댑터
+├── tools.py              도구 4개와 경로·명령 검사
+├── session.py            세션 저장·복원, 실행 기록
+└── limits.py             한도 값
+tests/                    하네스 자체 테스트
+sessions/                 세션과 실행 기록 (git 에 넣지 않음)
+```
+
+`work/` 가 도구의 경계다. `sessions/` 를 그 밖에 둔 이유는 하네스가 자기 기록을
+도구로 읽고 쓰지 못하게 하기 위해서다.
+
+## 권한과 승인
+
+| 도구 | 승인 | 범위 |
+|---|---|---|
+| `read_file` · `list_files` | 불필요 | `work/` 안쪽만 |
+| `write_file` | **필요** | `work/` 안쪽만. 변경 전후 대조를 보여 준다 |
+| `run_command` | **필요** | 허용 목록에 있는 실행 파일만 |
+
+- 경로는 `..` 와 심볼릭 링크를 모두 푼 뒤에 `work/` 안쪽인지 판정한다.
+- `run_command` 는 명령을 **문자열이 아니라 목록**으로 받고 셸을 거치지 않는다.
+  그래서 `;` 나 `|` 는 두 번째 명령으로 갈라지지 않고 인자 글자로 남는다.
+- 거절하면 파일은 그대로이고, 거절된 요청을 다시 들이밀면 묻지 않고 막는다.
+- 승인 함수를 넘기지 않으면 기본값은 **거절**이다.
+
+모델이 무엇을 요청하든 허용 여부는 코드가 정한다. 이것을 운영체제 샌드박스라고 부르지 않는다.
+
+## 설계 문서
+
+| 파일 | 내용 |
 |---|---|
-| PRD.md | 사용자 문제, 제품 요구사항, 범위와 미결정 사항 |
-| DECISIONS.md | 내가 선택한 내용과 이유, 미룬 사항 |
-| INTERFACES.md | 입력·출력·오류·상태의 약속 |
-| ACCEPTANCE.md | 완성 여부를 판정할 시나리오와 실제 증거 |
-| TROUBLESHOOTING.md | 실패 증상별 확인 순서와 AI에게 전달할 최소 재현 기록 |
-| IMPLEMENTATION_PLAN.md | 가장 작은 첫 연결부터 기능을 쌓는 순서 |
-| AGENTS.md / CLAUDE.md | AI가 질문하고 합의를 기록하는 프로젝트 지침 |
-| examples/spec-example.md | 모호한 문장을 검증 가능한 요구로 바꾸는 예 |
+| [PRD.md](PRD.md) | 사용자 문제, 요구사항, 선택한 범위 |
+| [DECISIONS.md](DECISIONS.md) | D01~D09 결정과 그 이유 |
+| [INTERFACES.md](INTERFACES.md) | 도구 계약, 상태 전이, 제공자 연결부 |
+| [ACCEPTANCE.md](ACCEPTANCE.md) | 판정 시나리오와 **실제 실행 증거·실패 기록** |
+| [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | 구현 순서와 단계별 결과 |
+| [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | 실패 증상별 확인 순서 |
+| [AGENTS.md](AGENTS.md) · CLAUDE.md | 설계 협업 지침 |
 
-D01~D07의 최초 범위를 정하면 “합의한 명세로 첫 작업부터 구현해 줘”라고 요청합니다. 이후 범용 자료 작업과 코드 수정·테스트를 모두 검증합니다. D08/D09는 나중으로 미뤄도 됩니다. 파일 이름은 바꾸어도 되지만 지침의 참조도 함께 고쳐야 합니다.
+무엇이 통과했고 무엇이 아직 안 됐는지는 `ACCEPTANCE.md` 에 상태로 적었다.
+실행하지 않은 것은 `NOT_RUN` 으로 남기고, 실패한 시도는 원인과 조치까지 기록한다.
 
-## 지침을 읽는 방식
-OpenCode는 프로젝트 AGENTS.md를 읽습니다. Claude Code는 CLAUDE.md에서 AGENTS.md를 가져오도록 구성했습니다. 제공 지침을 새로 생성할 필요는 없습니다. 전역 설정이나 도구 버전에 따라 동작이 달라질 수 있으므로 실제 첫 응답도 확인합니다.
+## 출처
 
-- [OpenCode 프로젝트 규칙](https://opencode.ai/docs/rules/)
-- [Claude Code 메모리와 파일 가져오기](https://code.claude.com/docs/en/memory)
-
-이 키트는 실행 프로그램이나 API 키를 포함하지 않습니다. 구현 중 막히면 [실패 진단 안내](TROUBLESHOOTING.md)의 증상 표와 기록 양식을 사용합니다.
-
-## Python 예시와 평가 도구
-[Python 하네스·10문항 평가 자료](https://github.com/SunCreation/agent-building-practice/releases/download/v4.0.0/harness-lab.zip)는 직접 구현한 반복, 제공자 어댑터, 승인, 세션, 로컬 평가 연결, 점수 모니터를 포함합니다. 예시의 설계와 자기 PRD를 비교한 뒤 실제 기준/변경 후 실험을 수행하고 결과와 소스를 제출합니다.
+[에이전트 하네스 설계 키트](https://github.com/SunCreation/agent-building-practice)에서 출발했다.
+평가에 쓰는 [Python 예시와 10문항 도구](https://github.com/SunCreation/agent-building-practice/releases/download/v4.0.0/harness-lab.zip)는 별도 자료다.
