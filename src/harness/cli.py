@@ -15,7 +15,7 @@ import json
 import sys
 from pathlib import Path
 
-from .agent import Agent, TaskState
+from .agent import WRITE_TOOLS, Agent, TaskState
 from .limits import DEFAULT_LIMITS
 from .providers import OllamaProvider, OpenAICompatProvider, ToolRequest
 from .session import Recorder, SessionStore
@@ -222,6 +222,26 @@ def command_run(args: argparse.Namespace) -> int:
     store.save(session_id, outcome.messages)
 
     print()
+
+    # 고치려는 시도가 있었는지 본다. 있었는데 바뀐 파일이 0 이면,
+    # 모델이 하겠다고만 하고 끝냈거나 편집이 전부 거부·거절된 것이다.
+    # 2026-09-08: 모델이 "수정하겠습니다" 라고 쓰고 대화를 끝냈는데
+    # 상태가 completed 로 찍혀서, 파일을 열어보지 않으면 속을 상황이었다.
+    tried_to_write = any(
+        request.name in WRITE_TOOLS
+        for message in outcome.messages
+        if message.get("role") == "assistant"
+        for request in (message.get("tool_requests") or [])
+    )
+
+    if outcome.files_changed:
+        print(f"[변경] 파일 {outcome.files_changed}건이 바뀌었습니다.")
+    elif tried_to_write:
+        print(
+            "[주의] 파일을 고치려는 시도가 있었지만 바뀐 파일이 없습니다.\n"
+            "        모델이 하겠다고만 했거나, 편집이 모두 거부·거절되었습니다."
+        )
+
     if outcome.succeeded:
         print("[답변]")
         print(outcome.text)

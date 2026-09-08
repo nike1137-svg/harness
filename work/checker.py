@@ -65,7 +65,7 @@ def check_text(text: str, known_slugs: set[str] | None = None) -> list[Violation
 
     # --- 필수 항목 -------------------------------------------------------
     # TODO: 이 목록이 REQUIRED_FIELDS 와 어긋나 있다.
-    for name in ("title", "date", "categories", "tags"):
+    for name in REQUIRED_FIELDS:
         if name not in fields:
             violations.append(
                 Violation(

@@ -21,7 +21,7 @@ from typing import Any
 from .limits import DEFAULT_LIMITS, Limits
 from .providers import ModelReply, Provider, ProviderError, ToolRequest
 from .session import Recorder
-from .tools import TOOL_DEFINITIONS, TOOL_HANDLERS, ToolError
+from .tools import TOOL_DEFINITIONS, TOOL_HANDLERS, TOOL_PRECHECKS, ToolError
 
 # 승인을 받아야 하는 도구. 읽기는 경로 검사만으로 통과한다. (D06)
 APPROVAL_REQUIRED = {"write_file", "edit_file", "run_command"}
@@ -35,6 +35,28 @@ class TaskState(str, Enum):
     FAILED = "failed"
 
 
+# 모델에게 주는 지침. 2026-09-08 까지 이것이 없어서 모델이 사용자 요청만
+# 받고 있었다. 그날 4B 모델이 "위와 같이 내용을 수정하겠습니다" 라고 쓰고
+# 도구를 부르지 않은 채 대화를 끝냈다. 파일은 그대로였는데 상태는 completed 였다.
+SYSTEM_PROMPT = """당신은 블로그 글과 그 검사 코드를 손보는 일을 돕는다.
+도구를 써서 실제로 일한다. 다음을 반드시 지킨다.
+
+1. 말만 하고 끝내지 마라. "고치겠습니다", "수정하겠습니다" 라고 쓰고 대화를
+   마치면 아무것도 하지 않은 것이다. 고칠 것이 있으면 edit_file 을 실제로 불러라.
+2. 코드를 고칠 때는 write_file 이 아니라 edit_file 을 쓴다. write_file 은 파일
+   전체를 덮어쓰므로 고치라고 하지 않은 곳까지 망가뜨린다.
+3. edit_file 의 old_string 은 read_file 로 본 글자 그대로 보낸다. 따옴표를
+   역슬래시로 감싸지 마라. 파일에 ("title", "date") 라고 있으면 그대로 보낸다.
+4. 도구가 실패하면 오류 메시지를 읽고 원인을 고쳐서 다시 시도한다. 같은 인자를
+   그대로 다시 보내지 마라.
+5. 시키지 않은 것은 건드리지 않는다. 요청된 곳만 바꾼다.
+6. 답에는 도구로 확인한 내용만 쓴다. 읽지 않은 것을 짐작해서 말하지 마라.
+"""
+
+# 파일을 실제로 바꾸는 도구. 몇 건 바뀌었는지 세어 사용자에게 보여 준다.
+WRITE_TOOLS = {"write_file", "edit_file"}
+
+
 @dataclass
 class TaskOutcome:
     """작업 하나의 결말. 미완료를 완료로 보여 주지 않는다."""
@@ -45,6 +67,10 @@ class TaskOutcome:
     tool_calls_used: int
     elapsed_seconds: float
     messages: list[dict[str, Any]] = field(default_factory=list)
+
+    # 이 작업에서 실제로 바뀐 파일 수. completed 라도 이 값이 0 이면
+    # 모델이 하겠다고만 하고 끝냈을 수 있다. 화면에 함께 찍는다.
+    files_changed: int = 0
 
     @property
     def succeeded(self) -> bool:
@@ -79,6 +105,15 @@ class Agent:
         self.limits = limits
         self.approver = approver
 
+        # 사용자가 승인 화면을 보고 있던 시간. 작업 시간에서 뺀다.
+        # 2026-09-08: 이 처리가 없어서 A03 이 task_timeout 으로 실패했다.
+        # 승인을 신중히 읽을수록 작업이 죽는 구조였다. 사람이 판단하는 시간은
+        # 하네스가 일한 시간이 아니다.
+        self._approval_seconds = 0.0
+
+        # 이 작업에서 실제로 바뀐 파일 수.
+        self._files_changed = 0
+
     # ------------------------------------------------------------------ 루프
 
     def run(
@@ -90,7 +125,14 @@ class Agent:
             return TaskOutcome(TaskState.FAILED, "", "empty_request", 0, 0.0, messages or [])
 
         started = time.monotonic()
+        self._approval_seconds = 0.0
+        self._files_changed = 0
         conversation: list[dict[str, Any]] = list(messages or [])
+
+        # 세션을 이어가는 경우 지침이 이미 대화 앞머리에 있다. 두 번 넣지 않는다.
+        if not any(message.get("role") == "system" for message in conversation):
+            conversation.insert(0, {"role": "system", "content": SYSTEM_PROMPT})
+
         conversation.append({"role": "user", "content": request})
 
         self.recorder.write(
@@ -104,7 +146,9 @@ class Agent:
         rejected: set[tuple[str, str]] = set()
 
         while True:
-            elapsed = time.monotonic() - started
+            # 승인을 기다린 시간은 빼고 센다. 사람이 판단하는 동안은
+            # 하네스가 일하는 중이 아니다.
+            elapsed = time.monotonic() - started - self._approval_seconds
             if elapsed > self.limits.task_timeout_seconds:
                 return self._finish(
                     TaskState.FAILED, "", "task_timeout", tool_calls_used, started, conversation
@@ -188,6 +232,16 @@ class Agent:
                 request, "UNKNOWN_TOOL", f"그런 도구는 없습니다: {request.name}"
             )
 
+        # --- 승인 전 검사 -----------------------------------------------
+        # 파일에 없는 문자열을 바꾸겠다거나 허용 목록에 없는 명령을 돌리겠다는
+        # 요청은 승인을 물을 가치가 없다. 사용자를 부르기 전에 걸러 낸다.
+        precheck = TOOL_PRECHECKS.get(request.name)
+        if precheck is not None:
+            try:
+                precheck(self.work_root, request.arguments)
+            except ToolError as error:
+                return self._tool_failure(request, error.code, error.message)
+
         # --- 승인 -------------------------------------------------------
         if request.name in APPROVAL_REQUIRED:
             key = (request.name, json.dumps(request.arguments, sort_keys=True, ensure_ascii=False))
@@ -200,7 +254,11 @@ class Agent:
                     "이미 거절된 요청입니다. 같은 내용으로 다시 요청하지 마세요.",
                 )
 
-            if not self.approver(request):
+            waiting_from = time.monotonic()
+            granted = self.approver(request)
+            self._approval_seconds += time.monotonic() - waiting_from
+
+            if not granted:
                 rejected.add(key)
                 self.recorder.write("approval_rejected", name=request.name)
                 return self._tool_failure(
@@ -216,10 +274,18 @@ class Agent:
             return self._tool_failure(request, error.code, error.message)
 
         payload = result.to_model()
+
+        # 파일을 실제로 바꾼 도구가 성공했을 때만 센다.
+        if request.name in WRITE_TOOLS and result.ok:
+            self._files_changed += 1
+
         self.recorder.write(
             "tool_result",
             name=request.name,
-            ok=True,
+            # result.ok 를 그대로 넘긴다. 2026-09-08 까지 여기에 True 가
+            # 못박혀 있어서, pytest 가 실패해도 화면에 "성공" 으로 찍혔다.
+            # run_command 에서 ok=(종료코드==0) 으로 만들어 놓고 그 값을 버렸다.
+            ok=result.ok,
             summary={key: value for key, value in payload.items() if key != "text"},
         )
         return json.dumps(payload, ensure_ascii=False)
@@ -239,12 +305,22 @@ class Agent:
         started: float,
         conversation: list[dict[str, Any]],
     ) -> TaskOutcome:
-        elapsed = time.monotonic() - started
+        elapsed = time.monotonic() - started - self._approval_seconds
         self.recorder.write(
             "task_end",
             state=state.value,
             reason=reason,
             tool_calls_used=tool_calls_used,
             elapsed_seconds=round(elapsed, 2),
+            approval_wait_seconds=round(self._approval_seconds, 2),
+            files_changed=self._files_changed,
         )
-        return TaskOutcome(state, text, reason, tool_calls_used, elapsed, conversation)
+        return TaskOutcome(
+            state,
+            text,
+            reason,
+            tool_calls_used,
+            elapsed,
+            conversation,
+            files_changed=self._files_changed,
+        )

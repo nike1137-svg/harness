@@ -7,11 +7,13 @@ A04 의 판정 기준은 '거절 버튼이 있다' 가 아니라
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 
 import pytest
 
 from harness.agent import Agent, TaskState
+from harness.limits import Limits
 from harness.providers import FakeProvider, ModelReply, ToolRequest
 from harness.session import Recorder
 from harness.tools import ToolError, edit_file, run_command, write_file
@@ -366,6 +368,33 @@ def test_edit_requires_approval(work: Path) -> None:
 
     assert target.read_bytes() == before
     assert payload_of(tool_messages(outcome)[0])["code"] == "REJECTED_BY_USER"
+
+
+def test_approval_wait_does_not_count_toward_task_timeout(work: Path) -> None:
+    """승인 화면을 오래 보고 있어도 작업이 타임아웃되지 않는다.
+
+    2026-09-08 A03 실행에서 647초 중 상당 부분이 사용자가 diff 를 읽는
+    시간이었고 그 때문에 task_timeout 으로 죽었다. 승인을 신중히 볼수록
+    작업이 실패하는 구조였다.
+    """
+    def slow_approve(request: ToolRequest) -> bool:
+        time.sleep(0.4)      # 사용자가 diff 를 읽는 시간
+        return True
+
+    provider = FakeProvider(
+        [
+            ModelReply(tool_requests=[ToolRequest("c1", "write_file", WRITE_ARGS)]),
+            ModelReply(text="고쳤습니다."),
+        ]
+    )
+    # 작업 한도를 0.25초로 잡는다. 승인 대기(0.4초)를 세면 반드시 죽는다.
+    agent = make_agent(
+        work, provider, limits=Limits(task_timeout_seconds=0.25), approver=slow_approve
+    )
+    outcome = agent.run("고쳐줘")
+
+    assert outcome.state is TaskState.COMPLETED
+    assert outcome.reason == "final_answer"
 
 
 def test_edit_outside_work_is_refused(work: Path) -> None:

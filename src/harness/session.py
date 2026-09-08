@@ -67,7 +67,15 @@ def describe(event: dict[str, Any]) -> str:
     if kind == "tool_result":
         if event.get("ok"):
             return "        → 성공"
-        return f"        → 실패 ({event.get('code')})"
+        code = event.get("code")
+        if code:
+            return f"        → 실패 ({code})"
+        # run_command 가 0 아닌 종료 코드를 돌려준 경우다. 오류 코드는 없지만
+        # 실패는 실패다. 종료 코드를 그대로 보여 준다.
+        exit_code = (event.get("summary") or {}).get("exit_code")
+        if exit_code is not None:
+            return f"        → 실패 (종료 코드 {exit_code})"
+        return "        → 실패"
     if kind == "approval_rejected":
         return f"        → 거절함 ({event.get('name')})"
     if kind == "provider_error":
@@ -75,9 +83,12 @@ def describe(event: dict[str, Any]) -> str:
     if kind == "tool_limit":
         return f"[중단] 도구 호출 한도에 걸렸습니다 ({event.get('used')}회)"
     if kind == "task_end":
+        # 바뀐 파일 수를 함께 찍는다. completed 인데 0 건이면 모델이
+        # 하겠다고만 하고 끝냈을 수 있다. 사용자가 그걸 알아야 한다.
         return (
             f"[종료] {event.get('state')} / 이유 {event.get('reason')} / "
-            f"도구 {event.get('tool_calls_used')}회 / {event.get('elapsed_seconds')}초"
+            f"도구 {event.get('tool_calls_used')}회 / "
+            f"파일 {event.get('files_changed', 0)}건 / {event.get('elapsed_seconds')}초"
         )
     return ""
 

@@ -219,6 +219,73 @@ def edit_file(
     )
 
 
+def precheck_edit(work_root: Path, arguments: dict[str, Any]) -> None:
+    """승인을 묻기 전에 이 편집이 성립하는지 먼저 본다.
+
+    2026-09-08: 모델이 따옴표를 과도하게 이스케이프해 `\\"title\\"` 처럼 보낸 탓에
+    파일과 맞지 않는 old_string 이 왔다. 그런데 하네스가 승인을 먼저 받고
+    나서야 검사해서, 사용자가 헛되게 승인을 두 번 눌렀다.
+
+    파일에 없는 문자열이라는 것은 승인을 묻기 전에 이미 알 수 있다.
+    물어볼 가치가 없는 요청으로 사용자를 귀찮게 하지 않는다.
+    """
+    target = resolve_inside(work_root, arguments.get("path"))
+    old_string = arguments.get("old_string")
+
+    if not isinstance(old_string, str) or not old_string:
+        raise ToolError("BAD_ARGUMENTS", "old_string 은 비어 있지 않은 문자열이어야 합니다.")
+    if not target.is_file():
+        raise ToolError("FILE_NOT_FOUND", f"파일을 찾지 못했습니다: {arguments.get('path')}")
+
+    text = target.read_text(encoding="utf-8")
+    found = text.count(old_string)
+
+    if found == 0:
+        hint = ""
+        # 역슬래시가 섞여 있으면 이스케이프 실수일 가능성이 높다. 짚어 준다.
+        if "\\" in old_string and "\\" not in text:
+            hint = (
+                " old_string 에 역슬래시(\\)가 들어 있는데 파일에는 없습니다. "
+                "따옴표를 이스케이프하지 말고 파일에 보이는 그대로 보내세요."
+            )
+        raise ToolError(
+            "EDIT_NOT_FOUND",
+            "old_string 을 파일에서 찾지 못했습니다. "
+            "read_file 로 현재 내용을 다시 확인하고 공백과 줄바꿈까지 그대로 보내세요."
+            + hint,
+        )
+    if found > 1:
+        raise ToolError(
+            "EDIT_AMBIGUOUS",
+            f"old_string 이 {found}곳에 나타납니다. 앞뒤 줄을 더 붙여 한 곳만 가리키게 하세요.",
+        )
+
+
+def precheck_command(work_root: Path, arguments: dict[str, Any]) -> None:
+    """허용 목록에 없는 명령이면 승인을 묻지 않는다.
+
+    사용자에게 `rm -rf` 를 승인할지 물어보는 화면 자체가 나오지 않아야 한다.
+    """
+    argv = arguments.get("argv")
+    if not isinstance(argv, list) or not argv:
+        raise ToolError("BAD_ARGUMENTS", "argv 는 비어 있지 않은 목록이어야 합니다.")
+    if not all(isinstance(item, str) for item in argv):
+        raise ToolError("BAD_ARGUMENTS", "argv 의 모든 항목은 문자열이어야 합니다.")
+    if argv[0] not in ALLOWED_COMMANDS:
+        raise ToolError(
+            "COMMAND_NOT_ALLOWED",
+            f"허용 목록에 없는 명령입니다: {argv[0]} "
+            f"(허용: {', '.join(sorted(ALLOWED_COMMANDS))})",
+        )
+
+
+def precheck_write(work_root: Path, arguments: dict[str, Any]) -> None:
+    """경로가 작업 폴더 밖이면 승인을 묻지 않는다."""
+    resolve_inside(work_root, arguments.get("path"))
+    if not isinstance(arguments.get("content"), str):
+        raise ToolError("BAD_ARGUMENTS", "content 는 문자열이어야 합니다.")
+
+
 def run_command(
     work_root: Path,
     arguments: dict[str, Any],
@@ -426,4 +493,13 @@ TOOL_HANDLERS = {
     "write_file": write_file,
     "edit_file": edit_file,
     "run_command": run_command,
+}
+
+# 승인을 묻기 **전에** 부르는 검사. ToolError 를 내면 사용자에게 묻지 않고
+# 그 오류를 모델에게 돌려준다. 물어볼 가치가 없는 요청으로 사람을 귀찮게
+# 하지 않는다. 검사가 없는 도구는 그냥 승인 절차로 간다.
+TOOL_PRECHECKS = {
+    "edit_file": precheck_edit,
+    "write_file": precheck_write,
+    "run_command": precheck_command,
 }
