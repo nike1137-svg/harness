@@ -1,0 +1,54 @@
+{
+  "id": "1f62f5445b2f4654b4652fc755ed45af",
+  "task_name": "python-sudoku-solver-backtracking",
+  "trial_name": "python-sudoku-solver-backtracking__1",
+  "started_at": "2026-09-08T14:23:14.318778+00:00",
+  "finished_at": "2026-09-08T14:27:38.110018+00:00",
+  "agent_result": {
+    "status": "task_timeout",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 12,
+      "elapsed_seconds": 260.96,
+      "files_changed": 5,
+      "state": "failed",
+      "reason": "task_timeout"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "app/puzzle.txt": "e7c832c332b3bf77165df496caaccf54f3bbac614a5fb7c6309d7518763d8a46",
+    "protected/test_data/easy_puzzle.txt": "62f68e481a81b305bf99ffb0bf419ecc72e8573f22a63f3b16a2f21fe8a95ad2",
+    "protected/test_data/hard_puzzle.txt": "a04269bee7683d46435b14b512aaa32ee73400374b995c13c384077e680d0cd5",
+    "protected/test_data/invalid_puzzle.txt": "d249f545eebf48f34b83404e4ef978db8065ed4dbc98d006817359fbcd30b21e",
+    "protected/test_data/minimal_puzzle.txt": "2cd3380b1e819e136bff4002634dc48a131fb8a1ae9dfd3877c3a14a2567ded2",
+    "protected/test_data/partial_filled.txt": "dd628c4a71dfc1d852af0916bf50202edcddd569c9c8e92e420b1b67b5fccd00"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 19,
+    "checks_total": 22,
+    "checks_failed": 3,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\improved-v2\\python-sudoku-solver-backtracking__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\improved-v2\\python-sudoku-solver-backtracking__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\improved-v2\\python-sudoku-solver-backtracking__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "task_timeout"
+  }
+}

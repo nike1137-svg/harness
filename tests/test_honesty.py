@@ -12,6 +12,7 @@
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 
 import pytest
@@ -200,3 +201,128 @@ def test_system_prompt_tells_model_not_to_just_talk(work: Path) -> None:
     assert "말만 하고 끝내지 마라" in SYSTEM_PROMPT
     assert "역슬래시" in SYSTEM_PROMPT      # 이스케이프 실수 방지
     assert "edit_file" in SYSTEM_PROMPT
+
+
+# ------------------------------------------------- 4. 예산 안에서 끝내기
+
+def test_model_call_is_capped_by_remaining_budget(work: Path) -> None:
+    """모델 호출 하나가 남은 예산을 넘기지 않도록 타임아웃이 좁혀진다.
+
+    2026-09-08 벤치마크: 한도 검사는 호출이 끝난 뒤에만 하므로, 예산이
+    얼마 안 남았을 때 시작한 호출이 예산을 크게 넘겼다. 그 사이 평가
+    도구가 먼저 끊어 이 하네스의 종료 이유와 사용량이 버려졌다.
+    """
+    from harness.limits import Limits
+
+    class SlowProvider(FakeProvider):
+        name = "slow"
+        timeout_seconds = 999.0
+
+        def complete(self, messages, tool_definitions):
+            time.sleep(0.15)
+            return super().complete(messages, tool_definitions)
+
+    provider = SlowProvider(
+        [
+            ModelReply(tool_requests=[ToolRequest("c1", "list_files", {"path": "."})]),
+            ModelReply(tool_requests=[ToolRequest("c2", "list_files", {"path": "."})]),
+            ModelReply(text="끝"),
+        ]
+    )
+    agent = make_agent(work, provider, limits=Limits(task_timeout_seconds=2.0))
+    agent.run("살펴봐")
+
+    # 남은 예산에 맞춰 좁혀졌다. 처음 값 999초를 그대로 쓰지 않는다.
+    assert provider.timeout_seconds < 999.0
+    assert provider.timeout_seconds >= 15.0      # 바닥값은 지킨다
+
+
+# ------------------------------------------------- 5. 모델 서버 오류 재시도
+#
+# 2026-09-08 벤치마크 기준 측정: 10문항 중 5문항이 모델 호출 오류 한 번에
+# 중단됐고, 그 시점에 도구를 2~8회밖에 쓰지 않았다(한도 160회).
+# 개선 실험은 max_provider_retries 만 올려서 같은 조건으로 재측정한다.
+
+
+class FlakyProvider(FakeProvider):
+    """앞의 n번은 실패하고 그 다음부터 정상 응답하는 제공자."""
+
+    name = "flaky"
+    timeout_seconds = 300.0
+
+    def __init__(self, replies, fail_times: int, kind: str = "connection") -> None:
+        super().__init__(replies)
+        self.fail_times = fail_times
+        self.kind = kind
+        self.call_count = 0
+
+    def complete(self, messages, tool_definitions):
+        from harness.providers import ProviderError
+
+        self.call_count += 1
+        if self.call_count <= self.fail_times:
+            raise ProviderError(self.kind, "일시적인 오류")
+        return super().complete(messages, tool_definitions)
+
+
+def test_without_retry_one_error_ends_the_task(work: Path) -> None:
+    """기준 동작: 한 번 실패하면 끝난다. 기본값은 재시도 0회다."""
+    from harness.limits import Limits
+
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=1)
+    outcome = make_agent(work, provider, limits=Limits()).run("해줘")
+
+    assert outcome.state is TaskState.FAILED
+    assert outcome.reason == "provider_connection"
+    assert provider.call_count == 1
+
+
+def test_with_retry_the_task_recovers(work: Path) -> None:
+    """개선 동작: 재시도를 허용하면 일시적 오류를 넘어가 완주한다."""
+    from harness.limits import Limits
+
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=1)
+    limits = Limits(max_provider_retries=2, provider_retry_backoff_seconds=0.01)
+    outcome = make_agent(work, provider, limits=limits).run("해줘")
+
+    assert outcome.state is TaskState.COMPLETED
+    assert outcome.text == "답"
+    assert provider.call_count == 2          # 실패 1 + 성공 1
+
+
+def test_retry_gives_up_after_the_limit(work: Path) -> None:
+    """허용 횟수를 넘기면 포기하고 이유를 남긴다. 무한정 매달리지 않는다."""
+    from harness.limits import Limits
+
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=9)
+    limits = Limits(max_provider_retries=2, provider_retry_backoff_seconds=0.01)
+    outcome = make_agent(work, provider, limits=limits).run("해줘")
+
+    assert outcome.state is TaskState.FAILED
+    assert outcome.reason == "provider_connection"
+    assert provider.call_count == 3          # 첫 호출 + 재시도 2회
+
+
+def test_auth_error_is_not_retried(work: Path) -> None:
+    """인증 오류는 다시 물어도 같은 답이 온다. 재시도하지 않는다."""
+    from harness.limits import Limits
+
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=9, kind="auth")
+    limits = Limits(max_provider_retries=2, provider_retry_backoff_seconds=0.01)
+    outcome = make_agent(work, provider, limits=limits).run("해줘")
+
+    assert outcome.reason == "provider_auth"
+    assert provider.call_count == 1
+
+
+def test_retry_is_recorded(work: Path) -> None:
+    """재시도했다는 사실이 기록에 남는다. 안 남으면 비교 근거가 없다."""
+    from harness.limits import Limits
+
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=1)
+    limits = Limits(max_provider_retries=2, provider_retry_backoff_seconds=0.01)
+    make_agent(work, provider, limits=limits).run("해줘")
+
+    kinds = [e.get("kind") for e in events_of(work)]
+    assert "provider_error" in kinds
+    assert "provider_retry" in kinds

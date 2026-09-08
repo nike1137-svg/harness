@@ -1,0 +1,1902 @@
+{
+  "schema_version": 1,
+  "kind": "agent_evaluation",
+  "generated_at": "2026-09-08T14:58:54.475382+00:00",
+  "job_dir": "<HARNESS_LAB>\\jobs\\improved-v2",
+  "manifest_sha256": "9313a9bc65812d9d77b433d409f42d75ac76688a762921e5bca6530419e2964f",
+  "attempts": 1,
+  "task_count": 10,
+  "metadata": {
+    "variant": "improved-v2",
+    "kind": "agent_evaluation",
+    "suite_id": "terminal-bench-pro-local-port-v1",
+    "revision": "874af409da6aafebccbf3bc5bb41a2fa4d78784d",
+    "provider": "ollama",
+    "execution_mode": "local-port",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python_version": "3.13.14",
+    "hostlimits": "unrestricted",
+    "model": "cyankiwi/Qwen3.5-4B-AWQ-4bit",
+    "attempts": 1,
+    "expected_tasks": [
+      "extract-paper-metadata-to-json",
+      "python-sudoku-solver-backtracking",
+      "detect-corrupted-blockchain-transaction",
+      "implement-go-board-analyzer",
+      "python-sokoban-bfs-solver",
+      "recover-encrypted-db-credentials",
+      "advanced-json-to-rfc4180-csv-converter",
+      "implement-depgraph-dependency-resolver",
+      "implement-lz77-file-compressor",
+      "implement-nonogram-puzzle-solver"
+    ],
+    "manifest_sha256": "9313a9bc65812d9d77b433d409f42d75ac76688a762921e5bca6530419e2964f",
+    "agent_source_path": "<HARNESS_LAB>\\my_agent.py",
+    "source_sha256": "7ebca7faa955e1df0c379fb831062b489bc8fc7f802157073d0f5b8698931891",
+    "code_sha256": "7ebca7faa955e1df0c379fb831062b489bc8fc7f802157073d0f5b8698931891",
+    "agent_import_path": "my_agent:solve_task",
+    "limits": {
+      "max_steps": 40,
+      "max_seconds": 300,
+      "command_timeout": 10
+    },
+    "started_at": "2026-09-08T14:18:51.996796+00:00",
+    "status": "finished",
+    "finished_at": "2026-09-08T14:56:19.881016+00:00",
+    "exit_code": 0
+  },
+  "job_finished": true,
+  "job_elapsed_seconds": 2247.88422,
+  "score_definition": "binary reward == 1 passes / (10 selected tasks * attempts); mean over attempts, not pass@k; errors and missing remain in denominator",
+  "attempt_order": "Lexicographic trial folder order within each task; labels are not paired RNG seeds across runs",
+  "summary": {
+    "expected": 10,
+    "pass": 0,
+    "fail": 1,
+    "error": 9,
+    "pending": 0,
+    "score": 0.0,
+    "metrics": {
+      "elapsed_seconds": {
+        "total": 2245.11698,
+        "known_sum": 2245.11698,
+        "known_trials": 10,
+        "expected_trials": 10
+      },
+      "n_input_tokens": {
+        "total": null,
+        "known_sum": null,
+        "known_trials": 0,
+        "expected_trials": 10
+      },
+      "n_cache_tokens": {
+        "total": null,
+        "known_sum": null,
+        "known_trials": 0,
+        "expected_trials": 10
+      },
+      "n_output_tokens": {
+        "total": null,
+        "known_sum": null,
+        "known_trials": 0,
+        "expected_trials": 10
+      },
+      "cost_usd": {
+        "total": null,
+        "known_sum": null,
+        "known_trials": 0,
+        "expected_trials": 10
+      }
+    }
+  },
+  "breakdown": {
+    "difficulty": {
+      "easy": {
+        "expected": 2,
+        "pass": 0,
+        "fail": 0,
+        "error": 2,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 524.41124,
+            "known_sum": 524.41124,
+            "known_trials": 2,
+            "expected_trials": 2
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 2
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 2
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 2
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 2
+          }
+        }
+      },
+      "hard": {
+        "expected": 4,
+        "pass": 0,
+        "fail": 0,
+        "error": 4,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 1100.172781,
+            "known_sum": 1100.172781,
+            "known_trials": 4,
+            "expected_trials": 4
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          }
+        }
+      },
+      "medium": {
+        "expected": 4,
+        "pass": 0,
+        "fail": 1,
+        "error": 3,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 620.532959,
+            "known_sum": 620.532959,
+            "known_trials": 4,
+            "expected_trials": 4
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          }
+        }
+      }
+    },
+    "category": {
+      "data-processing": {
+        "expected": 4,
+        "pass": 0,
+        "fail": 0,
+        "error": 4,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 1093.713444,
+            "known_sum": 1093.713444,
+            "known_trials": 4,
+            "expected_trials": 4
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 4
+          }
+        }
+      },
+      "debugging": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 58.503801,
+            "known_sum": 58.503801,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "games": {
+        "expected": 3,
+        "pass": 0,
+        "fail": 0,
+        "error": 3,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 812.614364,
+            "known_sum": 812.614364,
+            "known_trials": 3,
+            "expected_trials": 3
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 3
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 3
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 3
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 3
+          }
+        }
+      },
+      "software-engineering": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 1,
+        "error": 0,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 19.10456,
+            "known_sum": 19.10456,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "system-administration": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 261.180811,
+            "known_sum": 261.180811,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      }
+    },
+    "task": {
+      "advanced-json-to-rfc4180-csv-converter": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 275.687325,
+            "known_sum": 275.687325,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "detect-corrupted-blockchain-transaction": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 58.503801,
+            "known_sum": 58.503801,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "extract-paper-metadata-to-json": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 260.62,
+            "known_sum": 260.62,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "implement-depgraph-dependency-resolver": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 261.180811,
+            "known_sum": 261.180811,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "implement-go-board-analyzer": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 1,
+        "error": 0,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 19.10456,
+            "known_sum": 19.10456,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "implement-lz77-file-compressor": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 288.414145,
+            "known_sum": 288.414145,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "implement-nonogram-puzzle-solver": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 274.8905,
+            "known_sum": 274.8905,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "python-sokoban-bfs-solver": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 273.932624,
+            "known_sum": 273.932624,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "python-sudoku-solver-backtracking": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 263.79124,
+            "known_sum": 263.79124,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      },
+      "recover-encrypted-db-credentials": {
+        "expected": 1,
+        "pass": 0,
+        "fail": 0,
+        "error": 1,
+        "pending": 0,
+        "score": 0.0,
+        "metrics": {
+          "elapsed_seconds": {
+            "total": 268.991974,
+            "known_sum": 268.991974,
+            "known_trials": 1,
+            "expected_trials": 1
+          },
+          "n_input_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_cache_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "n_output_tokens": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          },
+          "cost_usd": {
+            "total": null,
+            "known_sum": null,
+            "known_trials": 0,
+            "expected_trials": 1
+          }
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "task": "extract-paper-metadata-to-json",
+      "difficulty": "easy",
+      "category": "data-processing",
+      "attempt": 1,
+      "trial_name": "extract-paper-metadata-to-json__1",
+      "trial_path": "extract-paper-metadata-to-json__1\\result.json",
+      "raw_reward": 1,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 260.62,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "python-sudoku-solver-backtracking",
+      "difficulty": "easy",
+      "category": "games",
+      "attempt": 1,
+      "trial_name": "python-sudoku-solver-backtracking__1",
+      "trial_path": "python-sudoku-solver-backtracking__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 263.79124,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "detect-corrupted-blockchain-transaction",
+      "difficulty": "medium",
+      "category": "debugging",
+      "attempt": 1,
+      "trial_name": "detect-corrupted-blockchain-transaction__1",
+      "trial_path": "detect-corrupted-blockchain-transaction__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 58.503801,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "implement-go-board-analyzer",
+      "difficulty": "medium",
+      "category": "software-engineering",
+      "attempt": 1,
+      "trial_name": "implement-go-board-analyzer__1",
+      "trial_path": "implement-go-board-analyzer__1\\result.json",
+      "raw_reward": 0,
+      "status": "fail",
+      "reason": "binary_reward_0",
+      "elapsed_seconds": 19.10456,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "python-sokoban-bfs-solver",
+      "difficulty": "medium",
+      "category": "games",
+      "attempt": 1,
+      "trial_name": "python-sokoban-bfs-solver__1",
+      "trial_path": "python-sokoban-bfs-solver__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 273.932624,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "recover-encrypted-db-credentials",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "attempt": 1,
+      "trial_name": "recover-encrypted-db-credentials__1",
+      "trial_path": "recover-encrypted-db-credentials__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 268.991974,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "advanced-json-to-rfc4180-csv-converter",
+      "difficulty": "hard",
+      "category": "data-processing",
+      "attempt": 1,
+      "trial_name": "advanced-json-to-rfc4180-csv-converter__1",
+      "trial_path": "advanced-json-to-rfc4180-csv-converter__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 275.687325,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "implement-depgraph-dependency-resolver",
+      "difficulty": "hard",
+      "category": "system-administration",
+      "attempt": 1,
+      "trial_name": "implement-depgraph-dependency-resolver__1",
+      "trial_path": "implement-depgraph-dependency-resolver__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 261.180811,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "implement-lz77-file-compressor",
+      "difficulty": "hard",
+      "category": "data-processing",
+      "attempt": 1,
+      "trial_name": "implement-lz77-file-compressor__1",
+      "trial_path": "implement-lz77-file-compressor__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 288.414145,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    },
+    {
+      "task": "implement-nonogram-puzzle-solver",
+      "difficulty": "hard",
+      "category": "games",
+      "attempt": 1,
+      "trial_name": "implement-nonogram-puzzle-solver__1",
+      "trial_path": "implement-nonogram-puzzle-solver__1\\result.json",
+      "raw_reward": 0,
+      "status": "error",
+      "reason": "AgentIncomplete",
+      "elapsed_seconds": 274.8905,
+      "n_input_tokens": null,
+      "n_cache_tokens": null,
+      "n_output_tokens": null,
+      "cost_usd": null
+    }
+  ],
+  "warnings": [],
+  "comparison": {
+    "baseline_job_dir": "<HARNESS_LAB>\\jobs\\baseline-v2",
+    "baseline_summary": {
+      "expected": 10,
+      "pass": 0,
+      "fail": 1,
+      "error": 9,
+      "pending": 0,
+      "score": 0.0,
+      "metrics": {
+        "elapsed_seconds": {
+          "total": 2226.317597,
+          "known_sum": 2226.317597,
+          "known_trials": 10,
+          "expected_trials": 10
+        },
+        "n_input_tokens": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        },
+        "n_cache_tokens": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        },
+        "n_output_tokens": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        },
+        "cost_usd": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        }
+      }
+    },
+    "current_summary": {
+      "expected": 10,
+      "pass": 0,
+      "fail": 1,
+      "error": 9,
+      "pending": 0,
+      "score": 0.0,
+      "metrics": {
+        "elapsed_seconds": {
+          "total": 2245.11698,
+          "known_sum": 2245.11698,
+          "known_trials": 10,
+          "expected_trials": 10
+        },
+        "n_input_tokens": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        },
+        "n_cache_tokens": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        },
+        "n_output_tokens": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        },
+        "cost_usd": {
+          "total": null,
+          "known_sum": null,
+          "known_trials": 0,
+          "expected_trials": 10
+        }
+      }
+    },
+    "controlled_comparison": true,
+    "differences_or_unknowns": [],
+    "score_delta": 0.0,
+    "interpretation": "Descriptive difference only; not statistical significance or pass@k. Check model/limits/task revision and unfinished trials.",
+    "tasks": [
+      {
+        "task": "advanced-json-to-rfc4180-csv-converter",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 275.687325,
+              "known_sum": 275.687325,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 141.300975,
+              "known_sum": 141.300975,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "detect-corrupted-blockchain-transaction",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 58.503801,
+              "known_sum": 58.503801,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 254.27106,
+              "known_sum": 254.27106,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "extract-paper-metadata-to-json",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 260.62,
+              "known_sum": 260.62,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 255.176422,
+              "known_sum": 255.176422,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "implement-depgraph-dependency-resolver",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 261.180811,
+              "known_sum": 261.180811,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 1,
+          "error": 0,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 158.848147,
+              "known_sum": 158.848147,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "implement-go-board-analyzer",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 1,
+          "error": 0,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 19.10456,
+              "known_sum": 19.10456,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 254.516868,
+              "known_sum": 254.516868,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "implement-lz77-file-compressor",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 288.414145,
+              "known_sum": 288.414145,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 267.844963,
+              "known_sum": 267.844963,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "implement-nonogram-puzzle-solver",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 274.8905,
+              "known_sum": 274.8905,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 142.385329,
+              "known_sum": 142.385329,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "python-sokoban-bfs-solver",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 273.932624,
+              "known_sum": 273.932624,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 242.356336,
+              "known_sum": 242.356336,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "python-sudoku-solver-backtracking",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 263.79124,
+              "known_sum": 263.79124,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 254.920779,
+              "known_sum": 254.920779,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      },
+      {
+        "task": "recover-encrypted-db-credentials",
+        "current": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 268.991974,
+              "known_sum": 268.991974,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        },
+        "baseline": {
+          "expected": 1,
+          "pass": 0,
+          "fail": 0,
+          "error": 1,
+          "pending": 0,
+          "score": 0.0,
+          "metrics": {
+            "elapsed_seconds": {
+              "total": 254.696718,
+              "known_sum": 254.696718,
+              "known_trials": 1,
+              "expected_trials": 1
+            },
+            "n_input_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_cache_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "n_output_tokens": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            },
+            "cost_usd": {
+              "total": null,
+              "known_sum": null,
+              "known_trials": 0,
+              "expected_trials": 1
+            }
+          }
+        }
+      }
+    ]
+  }
+}

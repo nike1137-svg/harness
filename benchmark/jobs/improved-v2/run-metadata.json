@@ -1,0 +1,39 @@
+{
+  "variant": "improved-v2",
+  "kind": "agent_evaluation",
+  "suite_id": "terminal-bench-pro-local-port-v1",
+  "revision": "874af409da6aafebccbf3bc5bb41a2fa4d78784d",
+  "provider": "ollama",
+  "execution_mode": "local-port",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python_version": "3.13.14",
+  "hostlimits": "unrestricted",
+  "model": "cyankiwi/Qwen3.5-4B-AWQ-4bit",
+  "attempts": 1,
+  "expected_tasks": [
+    "extract-paper-metadata-to-json",
+    "python-sudoku-solver-backtracking",
+    "detect-corrupted-blockchain-transaction",
+    "implement-go-board-analyzer",
+    "python-sokoban-bfs-solver",
+    "recover-encrypted-db-credentials",
+    "advanced-json-to-rfc4180-csv-converter",
+    "implement-depgraph-dependency-resolver",
+    "implement-lz77-file-compressor",
+    "implement-nonogram-puzzle-solver"
+  ],
+  "manifest_sha256": "9313a9bc65812d9d77b433d409f42d75ac76688a762921e5bca6530419e2964f",
+  "agent_source_path": "<HARNESS_LAB>\\my_agent.py",
+  "source_sha256": "7ebca7faa955e1df0c379fb831062b489bc8fc7f802157073d0f5b8698931891",
+  "code_sha256": "7ebca7faa955e1df0c379fb831062b489bc8fc7f802157073d0f5b8698931891",
+  "agent_import_path": "my_agent:solve_task",
+  "limits": {
+    "max_steps": 40,
+    "max_seconds": 300,
+    "command_timeout": 10
+  },
+  "started_at": "2026-09-08T14:18:51.996796+00:00",
+  "status": "finished",
+  "finished_at": "2026-09-08T14:56:19.881016+00:00",
+  "exit_code": 0
+}

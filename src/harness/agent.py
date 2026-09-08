@@ -155,20 +155,58 @@ class Agent:
                 )
 
             # --- 모델에게 묻는다 -------------------------------------------
-            try:
-                reply: ModelReply = self.provider.complete(conversation, TOOL_DEFINITIONS)
-            except ProviderError as error:
-                self.recorder.write(
-                    "provider_error", error_kind=error.kind, message=error.message
-                )
-                return self._finish(
-                    TaskState.FAILED,
-                    "",
-                    f"provider_{error.kind}",
-                    tool_calls_used,
-                    started,
-                    conversation,
-                )
+            reply: ModelReply | None = None
+            attempt = 0
+
+            while reply is None:
+                # 모델 호출 하나가 남은 예산을 넘기지 않게 한다.
+                #
+                # 2026-09-08 벤치마크 1·2차: 한도 검사는 호출이 끝난 뒤에만
+                # 하므로, 예산이 얼마 안 남은 상태에서 시작한 호출이 예산을
+                # 훌쩍 넘겼다. 그 사이 평가 도구가 먼저 끊어 이 하네스의
+                # 종료 이유와 사용량이 통째로 버려졌다(10문항 중 9개).
+                # 끊더라도 우리가 끊어야 무엇에 걸렸는지 남길 수 있다.
+                elapsed = time.monotonic() - started - self._approval_seconds
+                remaining = self.limits.task_timeout_seconds - elapsed
+                if hasattr(self.provider, "timeout_seconds"):
+                    self.provider.timeout_seconds = max(15.0, remaining - 3.0)
+
+                try:
+                    reply = self.provider.complete(conversation, TOOL_DEFINITIONS)
+                except ProviderError as error:
+                    self.recorder.write(
+                        "provider_error",
+                        error_kind=error.kind,
+                        message=error.message,
+                        attempt=attempt,
+                    )
+
+                    # 인증 오류는 다시 물어도 같은 답이 온다.
+                    retryable = error.kind in {"connection", "protocol"}
+                    wait = self.limits.provider_retry_backoff_seconds * (2**attempt)
+                    # 기다린 뒤 호출할 시간이 남아 있어야 재시도할 값이 있다.
+                    room_left = remaining - wait > 20.0
+
+                    if (
+                        not retryable
+                        or attempt >= self.limits.max_provider_retries
+                        or not room_left
+                    ):
+                        return self._finish(
+                            TaskState.FAILED,
+                            "",
+                            f"provider_{error.kind}",
+                            tool_calls_used,
+                            started,
+                            conversation,
+                        )
+
+                    attempt += 1
+                    self.recorder.write(
+                        "provider_retry", error_kind=error.kind, attempt=attempt,
+                        wait_seconds=round(wait, 1),
+                    )
+                    time.sleep(wait)
 
             # --- 응답 종류를 가른다 ----------------------------------------
             if not reply.wants_tools:

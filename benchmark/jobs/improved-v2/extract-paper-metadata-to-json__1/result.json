@@ -1,0 +1,51 @@
+{
+  "id": "48b84f7060bf4fe79aa0cec05eee72f9",
+  "task_name": "extract-paper-metadata-to-json",
+  "trial_name": "extract-paper-metadata-to-json__1",
+  "started_at": "2026-09-08T14:18:53.575490+00:00",
+  "finished_at": "2026-09-08T14:23:14.195490+00:00",
+  "agent_result": {
+    "status": "task_timeout",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 12,
+      "elapsed_seconds": 258.83,
+      "files_changed": 3,
+      "state": "failed",
+      "reason": "task_timeout"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "protected/papers/paper1.txt": "7571ff5b61ba21f531f763e41ce0d8b2cf0749b10030038a864cf866a50f8944",
+    "protected/papers/paper2.txt": "d44e52ed3da8a7bf9ec9a0117fd14f4414b9974a653498b827af35c484c8e443",
+    "protected/papers/paper3.txt": "5365e877f59e146e62c3da8be310c7b79234d484d452d0fd9eada66eca882081"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 1
+    },
+    "reward": 1,
+    "checks_passed": 13,
+    "checks_total": 13,
+    "checks_failed": 0,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 0,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\improved-v2\\extract-paper-metadata-to-json__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\improved-v2\\extract-paper-metadata-to-json__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\improved-v2\\extract-paper-metadata-to-json__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "task_timeout"
+  }
+}

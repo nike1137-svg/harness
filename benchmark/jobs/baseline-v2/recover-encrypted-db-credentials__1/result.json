@@ -1,0 +1,62 @@
+{
+  "id": "935f15478a574cef97f5f93be110a882",
+  "task_name": "recover-encrypted-db-credentials",
+  "trial_name": "recover-encrypted-db-credentials__1",
+  "started_at": "2026-09-08T14:02:22.722420+00:00",
+  "finished_at": "2026-09-08T14:06:37.419138+00:00",
+  "agent_result": {
+    "status": "provider_connection",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 23,
+      "elapsed_seconds": 252.09,
+      "files_changed": 0,
+      "state": "failed",
+      "reason": "provider_connection"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "db/.disk_blocks/.metadata": "d8edfff2a266f29f0ff5022d3be5b92c9225ad993bdbf59316a69752ab709471",
+    "db/.disk_blocks/block_000.bin": "0caf8d5bbd7a2afbc3369386311731003afafe92f882d54f2682eab81aac4ec5",
+    "db/.disk_blocks/block_001.bin": "c1b4898bdc272c41f6a90bfe4e4589696bc047328c88801ae16a14b2fefde9d9",
+    "db/.disk_blocks/block_002.bin": "7e1e71a19123772cee65ae4502fa2843f1f74204e1ca51ff364c0490f391726f",
+    "db/.disk_blocks/block_003.bin": "e45ae0580e8f0bea1b432e7a7c69ac18125912ff402ccf580d4ffb8fb9758816",
+    "db/.disk_blocks/block_004.bin": "cce2c62515416a66172b296b02ad850dd67cbdeadaef1cab4aa5576da603b20b",
+    "db/.disk_blocks/block_005.bin": "f397db662568ed05308b5a63df0359de14c5a16e4643441f2d484ceac21d767a",
+    "db/.disk_blocks/block_006.bin": "13b8231996b8a2e2250d3ce4151b679fb935f16619cfc005f01c254e6d1bbe50",
+    "db/.disk_blocks/block_007.bin": "f8d2b94f13e8d50f9b55972bcae00fd1d86f30788189cbe3d0b2fe78985019e3",
+    "db/.disk_blocks/block_garbage_1000.bin": "67485c3b93bf6ca422dc03ab333a7105934c6ade3a0ef37b62a78aafdbdbc8a2",
+    "db/.disk_blocks/block_garbage_255.bin": "1f9480e7aeb6f15fa12f94e09f0cdd7725c1ea816a13efdc7c0de6bb2fc7c1ea",
+    "db/.disk_blocks/block_garbage_256.bin": "6e8358273398cb1aa15dae4d4dea20a854e99d605beac9329aa99a3155102b2c",
+    "db/.disk_blocks/block_garbage_999.bin": "6621202d10aeb09642856395c59d69f2bc11f46cf58c284141a0b882f2cce2e7",
+    "db/.recovery_notes.txt": "ca45a73c158735f45ea64a92335f550ecddd73a26e82b81799245d0a94ccd2dd"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 0,
+    "checks_total": 30,
+    "checks_failed": 28,
+    "checks_errors": 0,
+    "checks_skipped": 2,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\baseline-v2\\recover-encrypted-db-credentials__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\baseline-v2\\recover-encrypted-db-credentials__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\baseline-v2\\recover-encrypted-db-credentials__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "provider_connection"
+  }
+}

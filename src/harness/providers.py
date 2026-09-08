@@ -115,10 +115,18 @@ class OllamaProvider:
         base_url: str = "http://localhost:11434",
         timeout_seconds: float = 300.0,
         keep_alive: str = "30m",
+        num_thread: int | None = None,
     ) -> None:
         self.model = model
         self.base_url = base_url.rstrip("/")
         self.timeout_seconds = timeout_seconds
+
+        # CPU 스레드 수. 2026-09-08: 벤치마크를 돌리는 동안 노트북이 멈춰서
+        # 다른 작업을 할 수 없었다. 환경 변수 OLLAMA_NUM_THREAD 는 서버가
+        # 시작할 때만 읽으므로 이미 떠 있는 서버에는 안 먹는다. 요청마다
+        # 지정하면 서버를 건드리지 않고 조절할 수 있고, 몇 개를 썼는지가
+        # 측정 조건으로 기록에도 남는다.
+        self.num_thread = num_thread
 
         # Ollama 는 기본 5분이 지나면 모델을 메모리에서 내린다.
         # 이 기계에서는 다시 올리는 데 약 51초가 걸려서, 실제로 재는
@@ -174,6 +182,9 @@ class OllamaProvider:
             "think": False,
             "keep_alive": self.keep_alive,
         }
+
+        if self.num_thread:
+            body["options"] = {"num_thread": self.num_thread}
 
         try:
             response = httpx.post(

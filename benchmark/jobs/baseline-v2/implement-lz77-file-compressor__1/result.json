@@ -1,0 +1,89 @@
+{
+  "id": "1799b1fc5cd1405db60f19ab8edaeda7",
+  "task_name": "implement-lz77-file-compressor",
+  "trial_name": "implement-lz77-file-compressor__1",
+  "started_at": "2026-09-08T14:11:37.991004+00:00",
+  "finished_at": "2026-09-08T14:16:05.835967+00:00",
+  "agent_result": {
+    "status": "provider_connection",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 14,
+      "elapsed_seconds": 252.07,
+      "files_changed": 0,
+      "state": "failed",
+      "reason": "provider_connection"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "app/decompress.py": "0e936b789a5b5250b2b6daaa43c7cbe6ce884abd0dffe0b64bf2b80cb86dd587",
+    "app/test_data/alternating.txt": "3d32d1b6854715a3898c346a98cc30b2b46127e3d03bfad083be265e0b780a50",
+    "app/test_data/binary_all_bytes.bin": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+    "app/test_data/code.txt": "546785377cd8fdf1fe861b3232f1b9385cebe9c67f1c378b417b65fef7cc2b6a",
+    "app/test_data/cross_window.txt": "728d84c0a11c8317946aebe46b2c01dd34bc5ae9ecaa9ea7fc8c595a2583e2e4",
+    "app/test_data/cyclic.txt": "edbbfbefd04816826f73af8fcdcf53c445cbe5e3fbbad54d890ce0c7a3401e56",
+    "app/test_data/empty.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/test_data/exact_end.txt": "babd6736192360b0e254b13f0eb5da9a9e17ed31bccf54b38ae8132d0515f43a",
+    "app/test_data/incremental.txt": "0e7241a834abab81111c61ea5710fd395320c7d358345f0c8ce22f687b48eb26",
+    "app/test_data/large.txt": "f9a57fd39c6b8d7b2c0a1e0e70d516dc1d0abf4771d5797a7b2f05ab99f63e69",
+    "app/test_data/logs.txt": "ecca4bd4acf2bc6cee9484440bec93685734dcf065657876e0c24e1c3e5e9f52",
+    "app/test_data/long_repeat.txt": "0e41ffb4de272c50c004a18b44f8df1d3ebed248b10ad3c6316d4823a48037b8",
+    "app/test_data/multi_match.txt": "0b3ba95c143f99213983fbd833bed4467a3775bf8d3618b6cff8bb78454ce82a",
+    "app/test_data/nullbytes.bin": "eb0fe55669373a5af3c2a7bb593e80f12a64f68a54ceab234654eaa91dd104b6",
+    "app/test_data/progressive.txt": "cc3d6747fe49a37e8617a47ce6a36cc1cbdacb0d921846b9ea576f5393fe7b01",
+    "app/test_data/simple.txt": "f70acb68693868ebf40255cce7d053743c346ae1e9dbb69e79e26fa8852d04ec",
+    "app/test_data/single.txt": "4b68ab3847feda7d6c62c1fbcbeebfa35eab7351ed5e78f4ddadea5df64b8015",
+    "app/test_data/special_ascii.txt": "7d576e4e96d41f039ebddbafb3c9df14374cc817bfaed9dc83643e202ade00d5",
+    "app/test_data/two_same.txt": "58bb119c35513a451d24dc20ef0e9031ec85b35bfc919d263e7e5d9868909cb5",
+    "app/test_data/utf8.txt": "c2211649646c450b0100db530b4b189a73c89635ab6dbd0e7da88b5041aee638",
+    "app/test_data/window_boundary.txt": "d8428e4f93cdb044a85c2a6b4578cd30a63b5aeae9234202c1334fd8744f8e3f",
+    "protected/test_data/alternating.txt": "3d32d1b6854715a3898c346a98cc30b2b46127e3d03bfad083be265e0b780a50",
+    "protected/test_data/binary_all_bytes.bin": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+    "protected/test_data/code.txt": "546785377cd8fdf1fe861b3232f1b9385cebe9c67f1c378b417b65fef7cc2b6a",
+    "protected/test_data/cross_window.txt": "728d84c0a11c8317946aebe46b2c01dd34bc5ae9ecaa9ea7fc8c595a2583e2e4",
+    "protected/test_data/cyclic.txt": "edbbfbefd04816826f73af8fcdcf53c445cbe5e3fbbad54d890ce0c7a3401e56",
+    "protected/test_data/empty.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "protected/test_data/exact_end.txt": "babd6736192360b0e254b13f0eb5da9a9e17ed31bccf54b38ae8132d0515f43a",
+    "protected/test_data/incremental.txt": "0e7241a834abab81111c61ea5710fd395320c7d358345f0c8ce22f687b48eb26",
+    "protected/test_data/large.txt": "f9a57fd39c6b8d7b2c0a1e0e70d516dc1d0abf4771d5797a7b2f05ab99f63e69",
+    "protected/test_data/logs.txt": "ecca4bd4acf2bc6cee9484440bec93685734dcf065657876e0c24e1c3e5e9f52",
+    "protected/test_data/long_repeat.txt": "0e41ffb4de272c50c004a18b44f8df1d3ebed248b10ad3c6316d4823a48037b8",
+    "protected/test_data/multi_match.txt": "0b3ba95c143f99213983fbd833bed4467a3775bf8d3618b6cff8bb78454ce82a",
+    "protected/test_data/nullbytes.bin": "eb0fe55669373a5af3c2a7bb593e80f12a64f68a54ceab234654eaa91dd104b6",
+    "protected/test_data/progressive.txt": "cc3d6747fe49a37e8617a47ce6a36cc1cbdacb0d921846b9ea576f5393fe7b01",
+    "protected/test_data/simple.txt": "f70acb68693868ebf40255cce7d053743c346ae1e9dbb69e79e26fa8852d04ec",
+    "protected/test_data/single.txt": "4b68ab3847feda7d6c62c1fbcbeebfa35eab7351ed5e78f4ddadea5df64b8015",
+    "protected/test_data/special_ascii.txt": "7d576e4e96d41f039ebddbafb3c9df14374cc817bfaed9dc83643e202ade00d5",
+    "protected/test_data/two_same.txt": "58bb119c35513a451d24dc20ef0e9031ec85b35bfc919d263e7e5d9868909cb5",
+    "protected/test_data/utf8.txt": "c2211649646c450b0100db530b4b189a73c89635ab6dbd0e7da88b5041aee638",
+    "protected/test_data/window_boundary.txt": "d8428e4f93cdb044a85c2a6b4578cd30a63b5aeae9234202c1334fd8744f8e3f"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 2,
+    "checks_total": 85,
+    "checks_failed": 83,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\baseline-v2\\implement-lz77-file-compressor__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\baseline-v2\\implement-lz77-file-compressor__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\baseline-v2\\implement-lz77-file-compressor__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "provider_connection"
+  }
+}

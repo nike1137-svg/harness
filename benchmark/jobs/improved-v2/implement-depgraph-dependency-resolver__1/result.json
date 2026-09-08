@@ -1,0 +1,51 @@
+{
+  "id": "d7e25ac9aff0467d8da9c4ada11dce09",
+  "task_name": "implement-depgraph-dependency-resolver",
+  "trial_name": "implement-depgraph-dependency-resolver__1",
+  "started_at": "2026-09-08T14:42:35.073322+00:00",
+  "finished_at": "2026-09-08T14:46:56.254133+00:00",
+  "agent_result": {
+    "status": "task_timeout",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 15,
+      "elapsed_seconds": 258.8,
+      "files_changed": 0,
+      "state": "failed",
+      "reason": "task_timeout"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "protected/packages/flask.manifest": "9249b33f3805959881188d9c6bbf7faa5c5357fa54dce3ca44dcfdfb97f21c63",
+    "protected/packages/requests.manifest": "c7e8d6dbfe2c17dc35672069037c143d048e3ce022eec5e7043486d8adfffec7",
+    "protected/packages/werkzeug.manifest": "96cd91cb8bfdec3a8784b95cce0b688abcde78bc79a370761401e03270f13e3b"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 0,
+    "checks_total": 13,
+    "checks_failed": 13,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\improved-v2\\implement-depgraph-dependency-resolver__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\improved-v2\\implement-depgraph-dependency-resolver__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\improved-v2\\implement-depgraph-dependency-resolver__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "task_timeout"
+  }
+}

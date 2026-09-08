@@ -1,0 +1,62 @@
+{
+  "id": "d7a7c8aecadc47d99555014344cd3c96",
+  "task_name": "recover-encrypted-db-credentials",
+  "trial_name": "recover-encrypted-db-credentials__1",
+  "started_at": "2026-09-08T14:33:30.264293+00:00",
+  "finished_at": "2026-09-08T14:37:59.256267+00:00",
+  "agent_result": {
+    "status": "task_timeout",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 22,
+      "elapsed_seconds": 266.45,
+      "files_changed": 2,
+      "state": "failed",
+      "reason": "task_timeout"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "db/.disk_blocks/.metadata": "d8edfff2a266f29f0ff5022d3be5b92c9225ad993bdbf59316a69752ab709471",
+    "db/.disk_blocks/block_000.bin": "0caf8d5bbd7a2afbc3369386311731003afafe92f882d54f2682eab81aac4ec5",
+    "db/.disk_blocks/block_001.bin": "c1b4898bdc272c41f6a90bfe4e4589696bc047328c88801ae16a14b2fefde9d9",
+    "db/.disk_blocks/block_002.bin": "7e1e71a19123772cee65ae4502fa2843f1f74204e1ca51ff364c0490f391726f",
+    "db/.disk_blocks/block_003.bin": "e45ae0580e8f0bea1b432e7a7c69ac18125912ff402ccf580d4ffb8fb9758816",
+    "db/.disk_blocks/block_004.bin": "cce2c62515416a66172b296b02ad850dd67cbdeadaef1cab4aa5576da603b20b",
+    "db/.disk_blocks/block_005.bin": "f397db662568ed05308b5a63df0359de14c5a16e4643441f2d484ceac21d767a",
+    "db/.disk_blocks/block_006.bin": "13b8231996b8a2e2250d3ce4151b679fb935f16619cfc005f01c254e6d1bbe50",
+    "db/.disk_blocks/block_007.bin": "f8d2b94f13e8d50f9b55972bcae00fd1d86f30788189cbe3d0b2fe78985019e3",
+    "db/.disk_blocks/block_garbage_1000.bin": "b6d7449fcdf31b2a1f2229cf566173978ae8ad7b76a53d8389419e4950adff93",
+    "db/.disk_blocks/block_garbage_255.bin": "fbce87bfeb3e723b7f5336b03a404998fdfb6b369df7f56e2cefdbbd3952d8df",
+    "db/.disk_blocks/block_garbage_256.bin": "62abda1e9e7734434ab10d952fd7906290ff925a183cd9df2b15d53255dbe4bb",
+    "db/.disk_blocks/block_garbage_999.bin": "a93c3901997c6bbd69ec347a2dc21025b467b58d26c88b587c74d213afe33a42",
+    "db/.recovery_notes.txt": "ca45a73c158735f45ea64a92335f550ecddd73a26e82b81799245d0a94ccd2dd"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 22,
+    "checks_total": 30,
+    "checks_failed": 6,
+    "checks_errors": 0,
+    "checks_skipped": 2,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\improved-v2\\recover-encrypted-db-credentials__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\improved-v2\\recover-encrypted-db-credentials__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\improved-v2\\recover-encrypted-db-credentials__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "task_timeout"
+  }
+}

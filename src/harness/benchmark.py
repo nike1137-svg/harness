@@ -71,32 +71,50 @@ def approve_everything(request: ToolRequest) -> bool:
 
 
 def build_provider(options: dict[str, Any]):
-    """options 의 provider 이름으로 어댑터를 고른다.
+    """어느 모델 서버에 붙을지 고른다.
 
-    주소는 환경 변수로 받는다. 명령줄에 적으면 실행 기록과 화면에 남는다. (R06)
+    harness-lab 의 `--provider` 는 openai/ollama 만 받도록 고정돼 있어서
+    거기에 vllm 을 적을 수 없다. 강의 자료를 고치는 대신 환경 변수로 넘긴다.
+
+        HARNESS_BASE_URL 이 있으면  -> OpenAI 호환 서버 (Colab vLLM)
+        없으면                      -> 로컬 Ollama
+
+    주소를 환경 변수로 받는 이유는 명령줄에 적으면 실행 기록과 화면에
+    남기 때문이다. (R06)
     """
-    name = options.get("provider", "ollama")
     model = options.get("model")
 
-    if name == "ollama":
-        return OllamaProvider(
-            model=model or "qwen3.5:2b",
-            base_url=os.environ.get("OLLAMA_HOST", "http://localhost:11434"),
-        )
-
-    if name in {"vllm", "openai-compat"}:
-        base_url = os.environ.get("HARNESS_BASE_URL")
-        if not base_url:
-            raise ValueError(
-                "vllm 을 쓰려면 환경 변수 HARNESS_BASE_URL 에 서버 주소를 넣어야 합니다."
-            )
+    base_url = os.environ.get("HARNESS_BASE_URL", "").strip()
+    if base_url:
         return OpenAICompatProvider(
             base_url=base_url,
-            model=model or "cyankiwi/Qwen3.5-4B-AWQ-4bit",
+            model=model or os.environ.get(
+                "HARNESS_MODEL", "cyankiwi/Qwen3.5-4B-AWQ-4bit"
+            ),
         )
 
-    raise ValueError(
-        f"이 하네스가 지원하지 않는 provider 입니다: {name} (ollama 또는 vllm)"
+    name = options.get("provider", "ollama")
+    if name != "ollama":
+        raise ValueError(
+            f"이 하네스는 {name} 를 직접 지원하지 않습니다. "
+            "로컬은 --provider ollama, Colab vLLM 은 환경 변수 HARNESS_BASE_URL 로 지정하세요."
+        )
+
+    # 스레드 수를 요청에 실어 보낸다. 벤치마크가 도는 동안 노트북이 멈추면
+    # 다른 일을 못 한다. 8코어 중 4개만 쓰면 화면이 반응한다.
+    # 이 값은 측정 조건이므로 baseline 과 improved 에서 같아야 한다.
+    threads = os.environ.get("OLLAMA_NUM_THREAD", "").strip()
+
+    # 모델 호출 하나가 작업 예산을 통째로 쓰면 도구를 한 번도 못 쓰고 끝난다.
+    # baseline 1차에서 provider_connection 으로 끝난 문항이 2건 있었다.
+    # 예산의 절반을 넘기면 그 호출을 포기하고 루프가 판단하게 한다.
+    budget = float(options.get("max_seconds", 300))
+
+    return OllamaProvider(
+        model=model or "qwen3.5:2b",
+        base_url=os.environ.get("OLLAMA_HOST", "http://localhost:11434"),
+        num_thread=int(threads) if threads.isdigit() else None,
+        timeout_seconds=budget * 0.5,
     )
 
 
@@ -108,11 +126,25 @@ def build_limits(options: dict[str, Any]) -> Limits:
     따라서 한도를 느슨하게 잡지 않는다.
     """
     max_steps = int(options.get("max_steps", 40))
+    budget = float(options.get("max_seconds", 300))
+
+    # 평가 도구보다 **먼저** 끝내야 한다.
+    #
+    # 2026-09-08 baseline 1차: 내 한도와 harness-lab 의 한도를 똑같이 300초로
+    # 잡았더니 둘이 경합했고, 저쪽이 먼저 TimeoutError 를 던져 10문항 중 9개가
+    # agent_result: null 로 남았다. 상태도 지표도 없어 실패 분석을 할 수 없었다.
+    # 내가 조금 일찍 끊으면 종료 이유와 사용량을 정리해서 돌려줄 수 있다.
+    # 개선 실험에서 바꾸는 **한 가지** 요소.
+    # 기준 측정은 0(재시도 없음), 개선 측정은 환경 변수로 올린다.
+    # 코드는 양쪽이 동일하고 이 값만 달라지므로, 다른 변수가 섞이지 않는다.
+    retries = os.environ.get("HARNESS_PROVIDER_RETRIES", "0").strip()
+
     return Limits(
         max_tool_calls=max_steps * 4,
-        task_timeout_seconds=float(options.get("max_seconds", 300)),
+        task_timeout_seconds=budget * 0.85,
         # 도구 자체 시간은 harness-lab 과 같게 +2초 여유를 둔다.
         tool_timeout_seconds=float(options.get("command_timeout", 10)) + 2,
+        max_provider_retries=int(retries) if retries.isdigit() else 0,
     )
 
 

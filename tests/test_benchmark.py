@@ -38,36 +38,56 @@ def test_limits_follow_harness_lab_budget() -> None:
     limits = build_limits({"max_steps": 40, "max_seconds": 300, "command_timeout": 10})
 
     assert limits.max_tool_calls == 160          # harness-lab 과 같은 steps × 4
-    assert limits.task_timeout_seconds == 300    # 기본 600 이 아니다
     assert limits.tool_timeout_seconds == 12     # command_timeout + 2
+
+    # 평가 도구(300초)보다 먼저 끝내야 종료 이유와 사용량을 돌려줄 수 있다.
+    # 같게 두었더니 저쪽이 먼저 끊어 10문항 중 9개가 agent_result: null 이었다.
+    assert limits.task_timeout_seconds < 300
+    assert limits.task_timeout_seconds == 255
 
 
 def test_limits_do_not_silently_use_defaults() -> None:
-    """옵션이 없을 때도 harness-lab 기본값을 쓴다."""
+    """옵션이 없을 때도 harness-lab 기본 예산에서 계산한다."""
     limits = build_limits({})
-    assert limits.task_timeout_seconds == 300
+    assert limits.task_timeout_seconds == 255
     assert limits.max_tool_calls == 160
 
 
-def test_provider_ollama() -> None:
+def test_model_call_cannot_eat_the_whole_budget(monkeypatch) -> None:
+    """모델 호출 하나가 작업 예산을 다 쓰면 도구를 한 번도 못 쓴다."""
+    monkeypatch.delenv("HARNESS_BASE_URL", raising=False)
+    provider = build_provider({"provider": "ollama", "max_seconds": 300})
+    assert provider.timeout_seconds == 150
+
+
+def test_provider_defaults_to_local_ollama(monkeypatch) -> None:
+    monkeypatch.delenv("HARNESS_BASE_URL", raising=False)
     provider = build_provider({"provider": "ollama", "model": "qwen3.5:2b"})
     assert provider.name == "ollama"
     assert provider.model == "qwen3.5:2b"
 
 
-def test_provider_vllm_requires_base_url_from_environment(monkeypatch) -> None:
-    """주소를 명령줄이 아니라 환경 변수로 받는다. (R06)"""
-    monkeypatch.delenv("HARNESS_BASE_URL", raising=False)
-    with pytest.raises(ValueError, match="HARNESS_BASE_URL"):
-        build_provider({"provider": "vllm"})
+def test_base_url_environment_switches_to_openai_compat(monkeypatch) -> None:
+    """harness-lab 의 --provider 는 vllm 을 못 받으므로 환경 변수로 넘긴다. (R06)
 
+    주소를 명령줄에 적으면 실행 기록과 화면에 남는다.
+    """
     monkeypatch.setenv("HARNESS_BASE_URL", "https://example.invalid")
-    provider = build_provider({"provider": "vllm"})
+    # --provider ollama 로 넘어와도 환경 변수가 있으면 그쪽을 쓴다.
+    provider = build_provider({"provider": "ollama"})
     assert provider.name == "vllm"
+    assert provider.base_url == "https://example.invalid"
 
 
-def test_unknown_provider_is_refused() -> None:
-    with pytest.raises(ValueError, match="지원하지 않는"):
+def test_blank_base_url_falls_back_to_ollama(monkeypatch) -> None:
+    """빈 문자열이나 공백만 든 값은 설정하지 않은 것으로 본다."""
+    monkeypatch.setenv("HARNESS_BASE_URL", "   ")
+    assert build_provider({"provider": "ollama"}).name == "ollama"
+
+
+def test_unsupported_provider_is_refused(monkeypatch) -> None:
+    monkeypatch.delenv("HARNESS_BASE_URL", raising=False)
+    with pytest.raises(ValueError, match="직접 지원하지 않습니다"):
         build_provider({"provider": "openai"})
 
 
@@ -187,7 +207,7 @@ def test_run_one_writes_trial_records(tmp_path: Path, monkeypatch) -> None:
     assert (logs / "events.jsonl").is_file()
 
     trial = json.loads((logs / "sessions" / "trial.json").read_text(encoding="utf-8"))
-    assert trial["settings"]["limits"]["task_timeout_seconds"] == 300
+    assert trial["settings"]["limits"]["task_timeout_seconds"] == 255
     assert any(m["role"] == "system" for m in trial["messages"])
 
 

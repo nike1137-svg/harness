@@ -1,0 +1,13 @@
+{
+  "job": "<HARNESS_LAB>\\jobs\\improved-v2",
+  "options": {
+    "provider": "ollama",
+    "model": "cyankiwi/Qwen3.5-4B-AWQ-4bit",
+    "agent": "my_agent:solve_task",
+    "attempts": 1,
+    "max_steps": 40,
+    "max_seconds": 300,
+    "command_timeout": 10,
+    "self_check": false
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "b849367d2214470dbe03204255cdf150",
+  "task_name": "detect-corrupted-blockchain-transaction",
+  "trial_name": "detect-corrupted-blockchain-transaction__1",
+  "started_at": "2026-09-08T13:49:51.118985+00:00",
+  "finished_at": "2026-09-08T13:54:05.390045+00:00",
+  "agent_result": {
+    "status": "provider_connection",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 5,
+      "elapsed_seconds": 252.08,
+      "files_changed": 1,
+      "state": "failed",
+      "reason": "provider_connection"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "app/blockchain_ledger.json": "9462ad2a46cc778474f7c29af6d6729d4ada731ee2125ccc3c403c6d88cbc86e"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 8,
+    "checks_total": 10,
+    "checks_failed": 2,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\baseline-v2\\detect-corrupted-blockchain-transaction__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\baseline-v2\\detect-corrupted-blockchain-transaction__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\baseline-v2\\detect-corrupted-blockchain-transaction__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "provider_connection"
+  }
+}

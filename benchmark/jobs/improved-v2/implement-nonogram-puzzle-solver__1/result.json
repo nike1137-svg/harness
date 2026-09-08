@@ -1,0 +1,55 @@
+{
+  "id": "285dc20c5c5b4936af8c998acaa340cd",
+  "task_name": "implement-nonogram-puzzle-solver",
+  "trial_name": "implement-nonogram-puzzle-solver__1",
+  "started_at": "2026-09-08T14:51:44.968437+00:00",
+  "finished_at": "2026-09-08T14:56:19.858937+00:00",
+  "agent_result": {
+    "status": "provider_connection",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 3,
+      "elapsed_seconds": 269.32,
+      "files_changed": 0,
+      "state": "failed",
+      "reason": "provider_connection"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "app/puzzle.txt": "7e204a8c1bd00bcc9b9fde8e439cf3c49be746ead4a21364d8973becc489d539",
+    "protected/puzzles/checkerboard_5x5.txt": "c9e3c8737d9070498444ba3f79447cdf0fa5935366ca25223affc4831f012182",
+    "protected/puzzles/empty_3x3.txt": "93cf515e9e91ba650977d1a404fa1ec5f1b8c176ed5641587821160a9fe5f6ac",
+    "protected/puzzles/full_3x3.txt": "c915291dbd5ddfa6b3b137ebc56ee5a3a899349bb9692f60bd50c898e8b0bedc",
+    "protected/puzzles/hollow_box_5x5.txt": "6e02aaaac11297204dfd389f4d4cb8b82db8d08e6473ce3fbd75895b66e08991",
+    "protected/puzzles/large_500x500.txt": "3a190e1fd7cab7640d09dd5f3b033a50798b8c0a8c40760a1e3f9211c50ce962",
+    "protected/puzzles/unsolvable_2x2.txt": "b2014d2c5e77f660813c182b440b6e1d2b087fec581e558cb43786e2689762d0"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 4,
+    "checks_total": 13,
+    "checks_failed": 9,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\improved-v2\\implement-nonogram-puzzle-solver__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\improved-v2\\implement-nonogram-puzzle-solver__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\improved-v2\\implement-nonogram-puzzle-solver__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "provider_connection"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "8b324bf30d264e2a9ab127b0b66b1ab1",
+  "task_name": "python-sokoban-bfs-solver",
+  "trial_name": "python-sokoban-bfs-solver__1",
+  "started_at": "2026-09-08T14:28:55.923892+00:00",
+  "finished_at": "2026-09-08T14:33:29.856516+00:00",
+  "agent_result": {
+    "status": "provider_connection",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 2,
+      "elapsed_seconds": 271.24,
+      "files_changed": 0,
+      "state": "failed",
+      "reason": "provider_connection"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "app/level1.txt": "92832db321706b7ae2cd099b872d7b9e41b67528b34a92932d5efbdb613f4ba6",
+    "protected/test_data/level_already_solved.txt": "8a6d0a2f45441a9b13f3cacb08e50e9b80c56dd40d1acff799d1b305cee1ea4e",
+    "protected/test_data/level_complex.txt": "3e93510ccc38ac82023ce1fc73e520b7b2496195075320595a80fdc1eaeeb88f",
+    "protected/test_data/level_impossible.txt": "c9d19a0fe1361ace477d8f957b992b7b2ae29aeb1bf00b292c1ba3a621c9f69b",
+    "protected/test_data/level_medium.txt": "4de1429a31ffc0cbb38fd2602e102a3ed61e0c6187ca39f9e7d7bf48269e676c",
+    "protected/test_data/level_simple.txt": "2e7651f96f0b08eae30f05242ff01febb8f450561c1eb1b4c351317c66c873de"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 0,
+    "checks_total": 12,
+    "checks_failed": 12,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\improved-v2\\python-sokoban-bfs-solver__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\improved-v2\\python-sokoban-bfs-solver__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\improved-v2\\python-sokoban-bfs-solver__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "provider_connection"
+  }
+}

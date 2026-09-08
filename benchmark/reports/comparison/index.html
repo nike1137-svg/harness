@@ -1,0 +1,930 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Harness benchmark snapshot</title>
+<style>body{font-family:system-ui,sans-serif;background:#f6f8fa;color:#18352d;margin:32px}h1{margin-bottom:8px}.score{font-size:36px;font-weight:700}table{border-collapse:collapse;background:white;margin:18px 0;min-width:600px}td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left}.scroll{overflow:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eef1ed;padding:16px}small{color:#53645e}</style>
+<h1>로컬 하네스 평가 모니터</h1><p>Terminal-Bench Pro 로컬 이식판 · 원본 난도 easy 2 / medium 4 / hard 4 · 공식 컨테이너 점수가 아닙니다.</p><p><strong>실제 에이전트 평가 기록</strong></p><small><HARNESS_LAB>\jobs\improved-v2 · 2026-09-08T14:58:54.475382+00:00</small>
+<p class="score">0 / 10 · 0.0%</p>
+<p>pass 0 · fail 1 · error 9 · pending 0</p>
+<p>분모는 10 × 1회로 고정합니다. 오류·누락을 제외하지 않습니다. 반복 평균이며 pass@k가 아닙니다.</p>
+<p>모델: cyankiwi/Qwen3.5-4B-AWQ-4bit · 제공자: ollama · 실행 환경: local-port</p>
+<p>Job finished: True · 전체 경과 초: 2247.88422</p>
+<h2>난도·분야별 결과</h2><div class="scroll"><table><tr><th>group</th><th>name</th><th>pass / expected</th><th>fail</th><th>error</th><th>pending</th></tr><tr><td>difficulty</td><td>easy</td><td>0 / 2</td><td>0</td><td>2</td><td>0</td></tr><tr><td>difficulty</td><td>hard</td><td>0 / 4</td><td>0</td><td>4</td><td>0</td></tr><tr><td>difficulty</td><td>medium</td><td>0 / 4</td><td>1</td><td>3</td><td>0</td></tr><tr><td>category</td><td>data-processing</td><td>0 / 4</td><td>0</td><td>4</td><td>0</td></tr><tr><td>category</td><td>debugging</td><td>0 / 1</td><td>0</td><td>1</td><td>0</td></tr><tr><td>category</td><td>games</td><td>0 / 3</td><td>0</td><td>3</td><td>0</td></tr><tr><td>category</td><td>software-engineering</td><td>0 / 1</td><td>1</td><td>0</td><td>0</td></tr><tr><td>category</td><td>system-administration</td><td>0 / 1</td><td>0</td><td>1</td><td>0</td></tr></table></div>
+<h2>측정값과 관측 범위</h2><p>unknown은 0이 아닙니다. 일부만 알려진 경우 total 대신 known sum과 관측 수를 확인하세요. 캐시 토큰은 입력 토큰에 포함되어 있어 더하지 않습니다.</p><div class="scroll"><table><tr><th>metric</th><th>total</th><th>known sum</th><th>known / expected</th></tr><tr><td>elapsed_seconds</td><td>2245.11698</td><td>2245.11698</td><td>10 / 10</td></tr><tr><td>n_input_tokens</td><td>unknown</td><td>unknown</td><td>0 / 10</td></tr><tr><td>n_cache_tokens</td><td>unknown</td><td>unknown</td><td>0 / 10</td></tr><tr><td>n_output_tokens</td><td>unknown</td><td>unknown</td><td>0 / 10</td></tr><tr><td>cost_usd</td><td>unknown</td><td>unknown</td><td>0 / 10</td></tr></table></div>
+<h2>시도별 결과</h2><p>Lexicographic trial folder order within each task; labels are not paired RNG seeds across runs</p><div class="scroll"><table><tr><th>task</th><th>difficulty</th><th>category</th><th>attempt</th><th>status</th><th>raw_reward</th><th>reason</th><th>elapsed_seconds</th><th>n_input_tokens</th><th>n_cache_tokens</th><th>n_output_tokens</th><th>cost_usd</th></tr><tr><td>extract-paper-metadata-to-json</td><td>easy</td><td>data-processing</td><td>1</td><td>error</td><td>1</td><td>AgentIncomplete</td><td>260.62</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>python-sudoku-solver-backtracking</td><td>easy</td><td>games</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>263.79124</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>detect-corrupted-blockchain-transaction</td><td>medium</td><td>debugging</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>58.503801</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>implement-go-board-analyzer</td><td>medium</td><td>software-engineering</td><td>1</td><td>fail</td><td>0</td><td>binary_reward_0</td><td>19.10456</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>python-sokoban-bfs-solver</td><td>medium</td><td>games</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>273.932624</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>recover-encrypted-db-credentials</td><td>medium</td><td>data-processing</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>268.991974</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>advanced-json-to-rfc4180-csv-converter</td><td>hard</td><td>data-processing</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>275.687325</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>implement-depgraph-dependency-resolver</td><td>hard</td><td>system-administration</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>261.180811</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>implement-lz77-file-compressor</td><td>hard</td><td>data-processing</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>288.414145</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr><tr><td>implement-nonogram-puzzle-solver</td><td>hard</td><td>games</td><td>1</td><td>error</td><td>0</td><td>AgentIncomplete</td><td>274.8905</td><td>unknown</td><td>unknown</td><td>unknown</td><td>unknown</td></tr></table></div>
+<h2>확인할 사항</h2><pre>진단 경고 없음</pre><h2>Baseline comparison</h2><pre>{
+  &quot;baseline_job_dir&quot;: &quot;<HARNESS_LAB>\\jobs\\baseline-v2&quot;,
+  &quot;baseline_summary&quot;: {
+    &quot;expected&quot;: 10,
+    &quot;pass&quot;: 0,
+    &quot;fail&quot;: 1,
+    &quot;error&quot;: 9,
+    &quot;pending&quot;: 0,
+    &quot;score&quot;: 0.0,
+    &quot;metrics&quot;: {
+      &quot;elapsed_seconds&quot;: {
+        &quot;total&quot;: 2226.317597,
+        &quot;known_sum&quot;: 2226.317597,
+        &quot;known_trials&quot;: 10,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;n_input_tokens&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;n_cache_tokens&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;n_output_tokens&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;cost_usd&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      }
+    }
+  },
+  &quot;current_summary&quot;: {
+    &quot;expected&quot;: 10,
+    &quot;pass&quot;: 0,
+    &quot;fail&quot;: 1,
+    &quot;error&quot;: 9,
+    &quot;pending&quot;: 0,
+    &quot;score&quot;: 0.0,
+    &quot;metrics&quot;: {
+      &quot;elapsed_seconds&quot;: {
+        &quot;total&quot;: 2245.11698,
+        &quot;known_sum&quot;: 2245.11698,
+        &quot;known_trials&quot;: 10,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;n_input_tokens&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;n_cache_tokens&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;n_output_tokens&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      },
+      &quot;cost_usd&quot;: {
+        &quot;total&quot;: null,
+        &quot;known_sum&quot;: null,
+        &quot;known_trials&quot;: 0,
+        &quot;expected_trials&quot;: 10
+      }
+    }
+  },
+  &quot;controlled_comparison&quot;: true,
+  &quot;differences_or_unknowns&quot;: [],
+  &quot;score_delta&quot;: 0.0,
+  &quot;interpretation&quot;: &quot;Descriptive difference only; not statistical significance or pass@k. Check model/limits/task revision and unfinished trials.&quot;,
+  &quot;tasks&quot;: [
+    {
+      &quot;task&quot;: &quot;advanced-json-to-rfc4180-csv-converter&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 275.687325,
+            &quot;known_sum&quot;: 275.687325,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 141.300975,
+            &quot;known_sum&quot;: 141.300975,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;detect-corrupted-blockchain-transaction&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 58.503801,
+            &quot;known_sum&quot;: 58.503801,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 254.27106,
+            &quot;known_sum&quot;: 254.27106,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;extract-paper-metadata-to-json&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 260.62,
+            &quot;known_sum&quot;: 260.62,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 255.176422,
+            &quot;known_sum&quot;: 255.176422,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;implement-depgraph-dependency-resolver&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 261.180811,
+            &quot;known_sum&quot;: 261.180811,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 1,
+        &quot;error&quot;: 0,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 158.848147,
+            &quot;known_sum&quot;: 158.848147,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;implement-go-board-analyzer&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 1,
+        &quot;error&quot;: 0,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 19.10456,
+            &quot;known_sum&quot;: 19.10456,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 254.516868,
+            &quot;known_sum&quot;: 254.516868,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;implement-lz77-file-compressor&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 288.414145,
+            &quot;known_sum&quot;: 288.414145,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 267.844963,
+            &quot;known_sum&quot;: 267.844963,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;implement-nonogram-puzzle-solver&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 274.8905,
+            &quot;known_sum&quot;: 274.8905,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 142.385329,
+            &quot;known_sum&quot;: 142.385329,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;python-sokoban-bfs-solver&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 273.932624,
+            &quot;known_sum&quot;: 273.932624,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 242.356336,
+            &quot;known_sum&quot;: 242.356336,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;python-sudoku-solver-backtracking&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 263.79124,
+            &quot;known_sum&quot;: 263.79124,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 254.920779,
+            &quot;known_sum&quot;: 254.920779,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    },
+    {
+      &quot;task&quot;: &quot;recover-encrypted-db-credentials&quot;,
+      &quot;current&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 268.991974,
+            &quot;known_sum&quot;: 268.991974,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      },
+      &quot;baseline&quot;: {
+        &quot;expected&quot;: 1,
+        &quot;pass&quot;: 0,
+        &quot;fail&quot;: 0,
+        &quot;error&quot;: 1,
+        &quot;pending&quot;: 0,
+        &quot;score&quot;: 0.0,
+        &quot;metrics&quot;: {
+          &quot;elapsed_seconds&quot;: {
+            &quot;total&quot;: 254.696718,
+            &quot;known_sum&quot;: 254.696718,
+            &quot;known_trials&quot;: 1,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_input_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_cache_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;n_output_tokens&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          },
+          &quot;cost_usd&quot;: {
+            &quot;total&quot;: null,
+            &quot;known_sum&quot;: null,
+            &quot;known_trials&quot;: 0,
+            &quot;expected_trials&quot;: 1
+          }
+        }
+      }
+    }
+  ]
+}</pre></html>

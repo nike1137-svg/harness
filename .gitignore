@@ -6,7 +6,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
-# 세션과 실행 기록 — 개발 중 계속 쌓인다.
-# 검증 증거는 ACCEPTANCE.md 에 정리해 남기고, 원본 로그는 커밋하지 않는다.
-# 벤치마크 결과(A11·A12)는 제출물이므로 benchmark/ 아래에 따로 둔다.
-sessions/
+# 개발 중 쌓이는 세션과 실행 기록. 검증 증거는 ACCEPTANCE.md 에 정리해 남긴다.
+# 앞에 / 를 붙여 **저장소 루트의 것만** 무시한다.
+# 붙이지 않으면 benchmark/ 아래 제출용 기록(A11·A12)까지 함께 사라진다.
+/sessions/

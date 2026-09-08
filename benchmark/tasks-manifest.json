@@ -1,0 +1,696 @@
+{
+  "suite_id": "terminal-bench-pro-local-port-v1",
+  "revision": "874af409da6aafebccbf3bc5bb41a2fa4d78784d",
+  "repo": "alibaba/terminal-bench-pro",
+  "url": "https://github.com/alibaba/terminal-bench-pro",
+  "difficulty_source": "upstream task.toml metadata at pinned revision",
+  "port_version": "1.0.0",
+  "description": "원본 문제·fixtures·verifier를 유지하고 절대 경로를 로컬 작업 폴더로 옮기는 교육용 평가. 원본 컨테이너 환경과 다르며 공식 전체 점수가 아니다.",
+  "tasks": [
+    {
+      "name": "extract-paper-metadata-to-json",
+      "difficulty": "easy",
+      "category": "data-processing",
+      "description": "extract paper metadata to json",
+      "source_files": [
+        {
+          "path": "environment/.dockerignore",
+          "sha256": "59830ebc3a4184110566bf1a290d08473dfdcbd492ce498b14cd1a5e2fa2e441",
+          "size_bytes": 5
+        },
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "db03beba3d7831295fbc32c213141947d919d46ef794143eaf99a982df95b186",
+          "size_bytes": 135
+        },
+        {
+          "path": "environment/papers/paper1.txt",
+          "sha256": "7571ff5b61ba21f531f763e41ce0d8b2cf0749b10030038a864cf866a50f8944",
+          "size_bytes": 1767
+        },
+        {
+          "path": "environment/papers/paper2.txt",
+          "sha256": "d44e52ed3da8a7bf9ec9a0117fd14f4414b9974a653498b827af35c484c8e443",
+          "size_bytes": 1948
+        },
+        {
+          "path": "environment/papers/paper3.txt",
+          "sha256": "5365e877f59e146e62c3da8be310c7b79234d484d452d0fd9eada66eca882081",
+          "size_bytes": 1768
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "a6b1097b21cab1f5cd3f49e8f460447b34081e59d859ab6429281df8c118ba09",
+          "size_bytes": 2064
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "9834c219a287fe29718b8e922074e76c832a011860132fcf2ce15a4ca37c3826",
+          "size_bytes": 4156
+        },
+        {
+          "path": "task.toml",
+          "sha256": "398cfd72b828d73f62c5b95328bb4cd75232eb4d887ee53103fa0dba75376b7a",
+          "size_bytes": 454
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "a2fa3e02a7992aa638db977efe0d1a761d6a43e905d3bf027c8e49166e2ba8ef",
+          "size_bytes": 866
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "955fd26d277e859f174469e647ad7b6baece83ca37a526896e08f45c51f2eea7",
+          "size_bytes": 7396
+        }
+      ]
+    },
+    {
+      "name": "python-sudoku-solver-backtracking",
+      "difficulty": "easy",
+      "category": "games",
+      "description": "python sudoku solver backtracking",
+      "source_files": [
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "cba528b4c4dd9ddba853d7fd684b34a5d67f47f8202d577b32b92694a172115c",
+          "size_bytes": 196
+        },
+        {
+          "path": "environment/puzzle.txt",
+          "sha256": "e7c832c332b3bf77165df496caaccf54f3bbac614a5fb7c6309d7518763d8a46",
+          "size_bytes": 89
+        },
+        {
+          "path": "environment/test_data/easy_puzzle.txt",
+          "sha256": "62f68e481a81b305bf99ffb0bf419ecc72e8573f22a63f3b16a2f21fe8a95ad2",
+          "size_bytes": 91
+        },
+        {
+          "path": "environment/test_data/hard_puzzle.txt",
+          "sha256": "a04269bee7683d46435b14b512aaa32ee73400374b995c13c384077e680d0cd5",
+          "size_bytes": 91
+        },
+        {
+          "path": "environment/test_data/invalid_puzzle.txt",
+          "sha256": "d249f545eebf48f34b83404e4ef978db8065ed4dbc98d006817359fbcd30b21e",
+          "size_bytes": 91
+        },
+        {
+          "path": "environment/test_data/minimal_puzzle.txt",
+          "sha256": "2cd3380b1e819e136bff4002634dc48a131fb8a1ae9dfd3877c3a14a2567ded2",
+          "size_bytes": 91
+        },
+        {
+          "path": "environment/test_data/partial_filled.txt",
+          "sha256": "dd628c4a71dfc1d852af0916bf50202edcddd569c9c8e92e420b1b67b5fccd00",
+          "size_bytes": 91
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "b238d63eb046d69887d129990297317baab276de4fd4dd51aded15cce7fba98d",
+          "size_bytes": 1330
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "c593b2e5fe4c58f874beac35ba39e28e4527f3efc63331b46b68e6328f6867bc",
+          "size_bytes": 3564
+        },
+        {
+          "path": "task.toml",
+          "sha256": "7a3c20f1295f35e8a8d712b0aea63dd6d6f50206855646fc172d5060e1c52235",
+          "size_bytes": 442
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "a2fa3e02a7992aa638db977efe0d1a761d6a43e905d3bf027c8e49166e2ba8ef",
+          "size_bytes": 866
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "0d3a7f7edc2a5f6df7c76ebc30e32b2db5952e9acad28e6d6691a7de8c92f2ad",
+          "size_bytes": 13495
+        }
+      ]
+    },
+    {
+      "name": "detect-corrupted-blockchain-transaction",
+      "difficulty": "medium",
+      "category": "debugging",
+      "description": "detect corrupted blockchain transaction",
+      "source_files": [
+        {
+          "path": "environment/.dockerignore",
+          "sha256": "59830ebc3a4184110566bf1a290d08473dfdcbd492ce498b14cd1a5e2fa2e441",
+          "size_bytes": 5
+        },
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "f956df5aaeb36b96291b06c6d7f200b56f11171706454bba0da4e60d53e82b62",
+          "size_bytes": 159
+        },
+        {
+          "path": "environment/blockchain_ledger.json",
+          "sha256": "9462ad2a46cc778474f7c29af6d6729d4ada731ee2125ccc3c403c6d88cbc86e",
+          "size_bytes": 40142
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "1f7cf804d3a7504cb4071e98c46913a059f1e29d6ffccdc6b7445466c94b3e67",
+          "size_bytes": 824
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "1b1f1eea0c619e46b23e857e0ce4fa7f0843771010b8133df5c2da40bdead8ce",
+          "size_bytes": 3877
+        },
+        {
+          "path": "task.toml",
+          "sha256": "f54664b6e23fe8b2968d488aaad2667073b5a385bbb53b30433121ffd95806c2",
+          "size_bytes": 447
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "55d09b319191d7c1705731397eac86ecee81fc6f019f87b28d055c6a056f66ea",
+          "size_bytes": 891
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "7e4102e1a2fd86ec87091040c79af2c637a1157f907b3ff22df408eb02d98edd",
+          "size_bytes": 3988
+        }
+      ]
+    },
+    {
+      "name": "implement-go-board-analyzer",
+      "difficulty": "medium",
+      "category": "software-engineering",
+      "description": "implement go board analyzer",
+      "source_files": [
+        {
+          "path": "environment/.dockerignore",
+          "sha256": "59830ebc3a4184110566bf1a290d08473dfdcbd492ce498b14cd1a5e2fa2e441",
+          "size_bytes": 5
+        },
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "6a5eaac5b3556a4497710ca4ceeb105add9d7854d96af2ffdc0091f881f1469a",
+          "size_bytes": 205
+        },
+        {
+          "path": "environment/board_001.json",
+          "sha256": "d410d1d2f8c09b32b53ad0608bf1c2b9311d3be67c90889dc622cf024c8fd2fa",
+          "size_bytes": 1884
+        },
+        {
+          "path": "environment/board_002.json",
+          "sha256": "69bb75d4e2b6110c5b187b1457986323f8f7ec47030bc76c62d53eecf0c2c5e3",
+          "size_bytes": 1879
+        },
+        {
+          "path": "environment/board_003.json",
+          "sha256": "a264baccde83fe0ec0e7ec8c7552deca21e9632df00ef618763d66798572903a",
+          "size_bytes": 1884
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "31e7b68062f00453c2434ec04b77590916c522cb1eef1f64b255d94e817844f5",
+          "size_bytes": 1176
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "7ae4cd2f9e1998220fedd4e8b071a9ca0fb8ad959a4c15da63c2f7044978ffb8",
+          "size_bytes": 3894
+        },
+        {
+          "path": "task.toml",
+          "sha256": "c84b41d854be873f0a768c2cc09a324b9e726dc28debd9728393080640e7a20b",
+          "size_bytes": 477
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "48686659712d0b637e43d2f167afd045f3f31f57021fb18c3d18bfc4636fc43e",
+          "size_bytes": 288
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "06efd488e3c1b4d82c3620fe24be91299d71461f95c8ede50a1c78a5c942a6c7",
+          "size_bytes": 10343
+        }
+      ]
+    },
+    {
+      "name": "python-sokoban-bfs-solver",
+      "difficulty": "medium",
+      "category": "games",
+      "description": "python sokoban bfs solver",
+      "source_files": [
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "597fefd4cd25c510a3d3fe1e9083211facd9ed9f9330ff974eab5d04d57b0611",
+          "size_bytes": 271
+        },
+        {
+          "path": "environment/level1.txt",
+          "sha256": "92832db321706b7ae2cd099b872d7b9e41b67528b34a92932d5efbdb613f4ba6",
+          "size_bytes": 40
+        },
+        {
+          "path": "environment/test_data/level_already_solved.txt",
+          "sha256": "8a6d0a2f45441a9b13f3cacb08e50e9b80c56dd40d1acff799d1b305cee1ea4e",
+          "size_bytes": 15
+        },
+        {
+          "path": "environment/test_data/level_complex.txt",
+          "sha256": "3e93510ccc38ac82023ce1fc73e520b7b2496195075320595a80fdc1eaeeb88f",
+          "size_bytes": 165
+        },
+        {
+          "path": "environment/test_data/level_impossible.txt",
+          "sha256": "c9d19a0fe1361ace477d8f957b992b7b2ae29aeb1bf00b292c1ba3a621c9f69b",
+          "size_bytes": 29
+        },
+        {
+          "path": "environment/test_data/level_medium.txt",
+          "sha256": "4de1429a31ffc0cbb38fd2602e102a3ed61e0c6187ca39f9e7d7bf48269e676c",
+          "size_bytes": 46
+        },
+        {
+          "path": "environment/test_data/level_simple.txt",
+          "sha256": "2e7651f96f0b08eae30f05242ff01febb8f450561c1eb1b4c351317c66c873de",
+          "size_bytes": 16
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "608c2cf3bc90042efbc4834ae3f135d208c5c3f93eb2ded3a68d67016f0e0833",
+          "size_bytes": 1147
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "960da94ec4164bf2a2a9f08e82f95839a02e1347bda5e30ae4b79c6780813dec",
+          "size_bytes": 4557
+        },
+        {
+          "path": "task.toml",
+          "sha256": "682535c1110c7d2b7c2b548e071b88b0ebdbe6fcb79caf4850e8a1b3b4fe2515",
+          "size_bytes": 447
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "a2fa3e02a7992aa638db977efe0d1a761d6a43e905d3bf027c8e49166e2ba8ef",
+          "size_bytes": 866
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "1ad946ff7c10870485fac3c060b99eab5f86af902c9da09cbf140cb86c5fda9c",
+          "size_bytes": 9628
+        }
+      ]
+    },
+    {
+      "name": "recover-encrypted-db-credentials",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "description": "recover encrypted db credentials",
+      "source_files": [
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "50d94209d8b67b9ec0dd11bcc5300104ce5a8a6b7fa6773208aa700df773d36c",
+          "size_bytes": 521
+        },
+        {
+          "path": "environment/setup.sh",
+          "sha256": "197ef238cf055e2394dd6bc9c636cb082ee70d1c7e2f9f2b0ffc249dcb54c36c",
+          "size_bytes": 5367
+        },
+        {
+          "path": "environment/test_data/expected_keys.txt",
+          "sha256": "2785491b4b2fa329b997adc13a5f8e21108c621bec417da0aaa62d4c1849c9e5",
+          "size_bytes": 99
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "3fbf880ad837d2405c4f3d2675f4088fbc531c307f48fa6c93b3b932be468d69",
+          "size_bytes": 1972
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "b814e2880e5529542bc179bf98f0dc5676c919b6847f6c0f6849b2471cd29c74",
+          "size_bytes": 6216
+        },
+        {
+          "path": "task.toml",
+          "sha256": "06fc1c656fd23640c9e4b9e98f2626f273ee3f76f79bd7a52ee4d3e5f141b96e",
+          "size_bytes": 467
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "fc9835e405cbbb0389d09b6482294a11e8f7ea4b856ec88162b8239c8b4b4d67",
+          "size_bytes": 864
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "863ffd05ed11467fa784a046acd2064314e78e652b36b9c2908c95cc420d36f3",
+          "size_bytes": 14316
+        }
+      ]
+    },
+    {
+      "name": "advanced-json-to-rfc4180-csv-converter",
+      "difficulty": "hard",
+      "category": "data-processing",
+      "description": "advanced json to rfc4180 csv converter",
+      "source_files": [
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "586fe9431bb85a91d59d6ab0a00f0aeae1ff241225d897837d4147c4a493bf91",
+          "size_bytes": 166
+        },
+        {
+          "path": "environment/converter.py",
+          "sha256": "0dff271a6795cd19e762ef91897cb07ded467ac10f9460e5ae7d1b42f9e62ff3",
+          "size_bytes": 79
+        },
+        {
+          "path": "environment/sales.json",
+          "sha256": "3dddadc287695c7285e869b70384a0fe5554d8ffcb640b2a7d27a03fd5fdd877",
+          "size_bytes": 13007
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "fd5e71365bb489c1e8f27fb66f045b88afbd54962cbefa095bbf1d2f80d2c733",
+          "size_bytes": 6949
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "66d872888bfbb9a137d96419ba29e6e12c6e1ffab4afac0433ded3875667de3e",
+          "size_bytes": 16560
+        },
+        {
+          "path": "task.toml",
+          "sha256": "d28681bb5e6a824fda1b473e8943c3bf605cf305fa069ef2b75c2b24446b9d02",
+          "size_bytes": 457
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "ca5150984c5cc41fcea16b505669ca0b3c0e4833a8fd94b1c43c06bf0b2b3abf",
+          "size_bytes": 930
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "ceac2b65ad34b9fa09602fbcdc4ea959bef584593914c09086793ea975cc1647",
+          "size_bytes": 35251
+        }
+      ]
+    },
+    {
+      "name": "implement-depgraph-dependency-resolver",
+      "difficulty": "hard",
+      "category": "system-administration",
+      "description": "implement depgraph dependency resolver",
+      "source_files": [
+        {
+          "path": "environment/.dockerignore",
+          "sha256": "59830ebc3a4184110566bf1a290d08473dfdcbd492ce498b14cd1a5e2fa2e441",
+          "size_bytes": 5
+        },
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "71e8356015f50b84228fdef634c8fd2a77cd44a285bc011ae46e14dc38675cdd",
+          "size_bytes": 139
+        },
+        {
+          "path": "environment/packages/flask.manifest",
+          "sha256": "9249b33f3805959881188d9c6bbf7faa5c5357fa54dce3ca44dcfdfb97f21c63",
+          "size_bytes": 104
+        },
+        {
+          "path": "environment/packages/requests.manifest",
+          "sha256": "c7e8d6dbfe2c17dc35672069037c143d048e3ce022eec5e7043486d8adfffec7",
+          "size_bytes": 84
+        },
+        {
+          "path": "environment/packages/werkzeug.manifest",
+          "sha256": "96cd91cb8bfdec3a8784b95cce0b688abcde78bc79a370761401e03270f13e3b",
+          "size_bytes": 80
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "386131dcc299d8558016a835517172112c9ba63374b2de8f3385ef85ea8cf90d",
+          "size_bytes": 3379
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "cd93754aa37ea043077cafe809863e1998436f3dea61d36a3694675141a685c5",
+          "size_bytes": 6646
+        },
+        {
+          "path": "task.toml",
+          "sha256": "c8f6830d8721f85226487f79bb744a718cedcef5480229de4bdba664e969a745",
+          "size_bytes": 489
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "34161a89d9cd2d5921dddc5c698544c874d9e2df80076097eb1840af1cb9a7e9",
+          "size_bytes": 578
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "e8d7ab563b5fa5bb62b360c37713f5ad8d53518067eb0ab8f483d31af3254f87",
+          "size_bytes": 7596
+        }
+      ]
+    },
+    {
+      "name": "implement-lz77-file-compressor",
+      "difficulty": "hard",
+      "category": "data-processing",
+      "description": "implement lz77 file compressor",
+      "source_files": [
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "50142d75dbe64c64173481725ca97691ad5dcffc88f73bbf92d5dd6e8227011f",
+          "size_bytes": 321
+        },
+        {
+          "path": "environment/decompress.py",
+          "sha256": "0e936b789a5b5250b2b6daaa43c7cbe6ce884abd0dffe0b64bf2b80cb86dd587",
+          "size_bytes": 1087
+        },
+        {
+          "path": "environment/test_data/alternating.txt",
+          "sha256": "3d32d1b6854715a3898c346a98cc30b2b46127e3d03bfad083be265e0b780a50",
+          "size_bytes": 20
+        },
+        {
+          "path": "environment/test_data/binary_all_bytes.bin",
+          "sha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+          "size_bytes": 256
+        },
+        {
+          "path": "environment/test_data/code.txt",
+          "sha256": "546785377cd8fdf1fe861b3232f1b9385cebe9c67f1c378b417b65fef7cc2b6a",
+          "size_bytes": 268
+        },
+        {
+          "path": "environment/test_data/cross_window.txt",
+          "sha256": "728d84c0a11c8317946aebe46b2c01dd34bc5ae9ecaa9ea7fc8c595a2583e2e4",
+          "size_bytes": 4116
+        },
+        {
+          "path": "environment/test_data/cyclic.txt",
+          "sha256": "edbbfbefd04816826f73af8fcdcf53c445cbe5e3fbbad54d890ce0c7a3401e56",
+          "size_bytes": 400
+        },
+        {
+          "path": "environment/test_data/empty.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        {
+          "path": "environment/test_data/exact_end.txt",
+          "sha256": "babd6736192360b0e254b13f0eb5da9a9e17ed31bccf54b38ae8132d0515f43a",
+          "size_bytes": 6
+        },
+        {
+          "path": "environment/test_data/incremental.txt",
+          "sha256": "0e7241a834abab81111c61ea5710fd395320c7d358345f0c8ce22f687b48eb26",
+          "size_bytes": 21
+        },
+        {
+          "path": "environment/test_data/large.txt",
+          "sha256": "f9a57fd39c6b8d7b2c0a1e0e70d516dc1d0abf4771d5797a7b2f05ab99f63e69",
+          "size_bytes": 24390
+        },
+        {
+          "path": "environment/test_data/logs.txt",
+          "sha256": "ecca4bd4acf2bc6cee9484440bec93685734dcf065657876e0c24e1c3e5e9f52",
+          "size_bytes": 211
+        },
+        {
+          "path": "environment/test_data/long_repeat.txt",
+          "sha256": "0e41ffb4de272c50c004a18b44f8df1d3ebed248b10ad3c6316d4823a48037b8",
+          "size_bytes": 1000
+        },
+        {
+          "path": "environment/test_data/multi_match.txt",
+          "sha256": "0b3ba95c143f99213983fbd833bed4467a3775bf8d3618b6cff8bb78454ce82a",
+          "size_bytes": 21
+        },
+        {
+          "path": "environment/test_data/nullbytes.bin",
+          "sha256": "eb0fe55669373a5af3c2a7bb593e80f12a64f68a54ceab234654eaa91dd104b6",
+          "size_bytes": 156
+        },
+        {
+          "path": "environment/test_data/progressive.txt",
+          "sha256": "cc3d6747fe49a37e8617a47ce6a36cc1cbdacb0d921846b9ea576f5393fe7b01",
+          "size_bytes": 209
+        },
+        {
+          "path": "environment/test_data/simple.txt",
+          "sha256": "f70acb68693868ebf40255cce7d053743c346ae1e9dbb69e79e26fa8852d04ec",
+          "size_bytes": 12
+        },
+        {
+          "path": "environment/test_data/single.txt",
+          "sha256": "4b68ab3847feda7d6c62c1fbcbeebfa35eab7351ed5e78f4ddadea5df64b8015",
+          "size_bytes": 1
+        },
+        {
+          "path": "environment/test_data/special_ascii.txt",
+          "sha256": "7d576e4e96d41f039ebddbafb3c9df14374cc817bfaed9dc83643e202ade00d5",
+          "size_bytes": 75
+        },
+        {
+          "path": "environment/test_data/two_same.txt",
+          "sha256": "58bb119c35513a451d24dc20ef0e9031ec85b35bfc919d263e7e5d9868909cb5",
+          "size_bytes": 2
+        },
+        {
+          "path": "environment/test_data/utf8.txt",
+          "sha256": "c2211649646c450b0100db530b4b189a73c89635ab6dbd0e7da88b5041aee638",
+          "size_bytes": 350
+        },
+        {
+          "path": "environment/test_data/window_boundary.txt",
+          "sha256": "d8428e4f93cdb044a85c2a6b4578cd30a63b5aeae9234202c1334fd8744f8e3f",
+          "size_bytes": 4296
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "63492679ffe4ecc89559202a2a75943b546240542a0f1bdec1d8830930bfd8c2",
+          "size_bytes": 1515
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "2665f4e55248ee1c30a66e86667b722c13fe6bfe6a98f7fb95525247285cb00f",
+          "size_bytes": 5034
+        },
+        {
+          "path": "task.toml",
+          "sha256": "96e0fc0203b9269f71296cfc7fee687c2f7f89e61277c805d4e29185e073254d",
+          "size_bytes": 442
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "fc9835e405cbbb0389d09b6482294a11e8f7ea4b856ec88162b8239c8b4b4d67",
+          "size_bytes": 864
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "a49a32274ec82644fc806c8ca119f4d15528d8d6646b9da5bea22e36f4920068",
+          "size_bytes": 40315
+        }
+      ]
+    },
+    {
+      "name": "implement-nonogram-puzzle-solver",
+      "difficulty": "hard",
+      "category": "games",
+      "description": "implement nonogram puzzle solver",
+      "source_files": [
+        {
+          "path": "environment/Dockerfile",
+          "sha256": "930098eb62c6e0af1cfd785382a006da40390dd8146ab40f9031501a256763f7",
+          "size_bytes": 167
+        },
+        {
+          "path": "environment/puzzle.txt",
+          "sha256": "7e204a8c1bd00bcc9b9fde8e439cf3c49be746ead4a21364d8973becc489d539",
+          "size_bytes": 42
+        },
+        {
+          "path": "environment/puzzles/checkerboard_5x5.txt",
+          "sha256": "c9e3c8737d9070498444ba3f79447cdf0fa5935366ca25223affc4831f012182",
+          "size_bytes": 90
+        },
+        {
+          "path": "environment/puzzles/empty_3x3.txt",
+          "sha256": "93cf515e9e91ba650977d1a404fa1ec5f1b8c176ed5641587821160a9fe5f6ac",
+          "size_bytes": 50
+        },
+        {
+          "path": "environment/puzzles/full_3x3.txt",
+          "sha256": "c915291dbd5ddfa6b3b137ebc56ee5a3a899349bb9692f60bd50c898e8b0bedc",
+          "size_bytes": 50
+        },
+        {
+          "path": "environment/puzzles/hollow_box_5x5.txt",
+          "sha256": "6e02aaaac11297204dfd389f4d4cb8b82db8d08e6473ce3fbd75895b66e08991",
+          "size_bytes": 70
+        },
+        {
+          "path": "environment/puzzles/large_500x500.txt",
+          "sha256": "3a190e1fd7cab7640d09dd5f3b033a50798b8c0a8c40760a1e3f9211c50ce962",
+          "size_bytes": 4042
+        },
+        {
+          "path": "environment/puzzles/unsolvable_2x2.txt",
+          "sha256": "b2014d2c5e77f660813c182b440b6e1d2b087fec581e558cb43786e2689762d0",
+          "size_bytes": 46
+        },
+        {
+          "path": "instruction.md",
+          "sha256": "a9edfc6ce32913c8045e1bc40b582f0a0c75736cddc8729e3483d45d7136ef22",
+          "size_bytes": 1498
+        },
+        {
+          "path": "solution/solve.sh",
+          "sha256": "eefb162d5ff579ab2d09fcfa8efac5085c520191f18aca9401cf59130b391155",
+          "size_bytes": 3850
+        },
+        {
+          "path": "task.toml",
+          "sha256": "d579dcc4153b870405b970b6ec1dff5da3aef31bcc459aaebc0f0c3db935c281",
+          "size_bytes": 431
+        },
+        {
+          "path": "tests/test.sh",
+          "sha256": "a2fa3e02a7992aa638db977efe0d1a761d6a43e905d3bf027c8e49166e2ba8ef",
+          "size_bytes": 866
+        },
+        {
+          "path": "tests/test_outputs.py",
+          "sha256": "a64d2d118eb601a312a9f62766bbb4e28a971a986201d0e0bd9944dd9ab563ed",
+          "size_bytes": 5555
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "GoBoard verifier는 mypy와 flake8 실행파일이 필요하다. 원본 테스트는 두 도구의 실패 종료코드를 assert하지 않으므로 통과가 lint/typecheck 성공을 보장하지 않는다.",
+    "pytest와 Python 하위 프로세스를 사용한다. 외부 명령이 전혀 없는 평가가 아니다.",
+    "recover 과제의 setup은 os.urandom으로 무작위 garbage bytes를 생성한다. 원본을 변경하지 않고 준비된 fixture SHA256을 실행마다 기록한다.",
+    "원본 tests/solution은 준비 캐시에만 두고 에이전트 작업 폴더로 복사하지 않는다. 에이전트 런타임의 캐시 접근 차단은 별도 실행 경계가 필요하다."
+  ],
+  "local_port_changes": [
+    {
+      "task": "recover-encrypted-db-credentials",
+      "source_path": "environment/test_data/expected_keys.txt",
+      "upstream_runtime_path": "/protected/test_data/expected_keys.txt",
+      "local_destination": "evaluator-only verified cache; excluded from model workspace",
+      "reason": "원본 이미지에 답안 파일이 노출되는 문제를 보정한다. verifier는 캐시의 동일 원문을 읽고 assertion은 유지한다. 원본 난도 표기는 유지하지만 공식 컨테이너 점수와 동일하지 않다."
+    }
+  ]
+}

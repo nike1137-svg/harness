@@ -1,0 +1,49 @@
+{
+  "id": "ef674fd1711f4c6596ddaff179969272",
+  "task_name": "advanced-json-to-rfc4180-csv-converter",
+  "trial_name": "advanced-json-to-rfc4180-csv-converter__1",
+  "started_at": "2026-09-08T14:37:59.323313+00:00",
+  "finished_at": "2026-09-08T14:42:35.010638+00:00",
+  "agent_result": {
+    "status": "provider_connection",
+    "answer": "",
+    "metrics": {
+      "tool_calls_used": 5,
+      "elapsed_seconds": 271.32,
+      "files_changed": 0,
+      "state": "failed",
+      "reason": "provider_connection"
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "home/user/sales.json": "3dddadc287695c7285e869b70384a0fe5554d8ffcb640b2a7d27a03fd5fdd877"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 0,
+    "checks_total": 90,
+    "checks_failed": 90,
+    "checks_errors": 0,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "<HARNESS_LAB>\\jobs\\improved-v2\\advanced-json-to-rfc4180-csv-converter__1\\verifier\\results.xml",
+      "stdout": "<HARNESS_LAB>\\jobs\\improved-v2\\advanced-json-to-rfc4180-csv-converter__1\\verifier\\stdout.txt",
+      "stderr": "<HARNESS_LAB>\\jobs\\improved-v2\\advanced-json-to-rfc4180-csv-converter__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "provider_connection"
+  }
+}
