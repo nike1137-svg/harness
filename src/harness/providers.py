@@ -24,12 +24,54 @@ class ProviderError(Exception):
 
     kind 로 원인을 나눈다. 연결이 안 된 것과 응답이 이상한 것은
     고쳐야 할 곳이 다르다. (TROUBLESHOOTING.md 증상표)
+
+    status 는 HTTP 응답이 있었을 때의 상태 코드다. 연결 자체가 안 됐거나
+    응답을 파싱하지 못한 경우에는 None 이다.
+
+    이 값이 필요한 이유는 2026-09-08 벤치마크에서 드러났다. kind 만으로는
+    "protocol" 한 이름 아래 400(요청이 잘못됨)과 502(서버가 잠깐 죽음)가
+    섞인다. 그 둘을 똑같이 재시도했더니, 컨텍스트 한도를 넘긴 요청을
+    두 번 더 보내며 6초를 버렸다. 다시 보내서 답이 달라질 오류인지는
+    상태 코드를 봐야 갈린다.
     """
 
-    def __init__(self, kind: str, message: str) -> None:
+    def __init__(self, kind: str, message: str, status: int | None = None) -> None:
         super().__init__(message)
         self.kind = kind  # "connection" | "auth" | "protocol"
         self.message = message
+        self.status = status
+
+
+# 다시 보내도 같은 답이 오는 상태 코드. 요청 자체를 고치지 않으면 소용없다.
+#
+# 4xx/5xx 로 가르지 않는 이유: 429 는 4xx 인데 기다렸다 보내면 통한다.
+# 기준은 "고치지 않고 다시 보내면 답이 달라지는가" 이지 번호대가 아니다.
+NON_RETRYABLE_STATUS = frozenset({
+    400,  # 요청 형식이 틀렸거나 컨텍스트 한도를 넘음
+    401,  # 인증 없음
+    403,  # 권한 없음
+    404,  # 없는 모델·경로
+    405,  # 허용하지 않는 메서드
+    409,  # 상태 충돌
+    413,  # 본문이 너무 큼
+    422,  # 형식은 맞지만 내용을 처리할 수 없음
+})
+
+
+def is_retryable(error: "ProviderError") -> bool:
+    """이 오류를 다시 시도할 가치가 있는가.
+
+    - 인증 오류는 다시 물어도 같은 답이 온다.
+    - 상태 코드가 없으면 연결이 끊기거나 시간이 초과된 것이다. 다시 해볼 만하다.
+    - 429(호출량 제한)와 408(요청 시간 초과)은 4xx 지만 기다리면 통한다.
+    - 그 밖의 4xx 는 요청을 고쳐야 하므로 재시도하지 않는다.
+    - 5xx 는 서버 쪽 문제라 잠시 뒤 통할 수 있다.
+    """
+    if error.kind == "auth":
+        return False
+    if error.status is None:
+        return error.kind in {"connection", "protocol"}
+    return error.status not in NON_RETRYABLE_STATUS
 
 
 @dataclass(frozen=True)
@@ -205,11 +247,16 @@ class OllamaProvider:
             ) from None
 
         if response.status_code == 401 or response.status_code == 403:
-            raise ProviderError("auth", f"인증에 실패했습니다 (HTTP {response.status_code}).")
+            raise ProviderError(
+                "auth",
+                f"인증에 실패했습니다 (HTTP {response.status_code}).",
+                status=response.status_code,
+            )
         if response.status_code >= 400:
             raise ProviderError(
                 "protocol",
                 f"Ollama 가 HTTP {response.status_code} 를 돌려주었습니다: {response.text[:300]}",
+                status=response.status_code,
             )
 
         try:
@@ -352,11 +399,16 @@ class OpenAICompatProvider:
             ) from None
 
         if response.status_code in (401, 403):
-            raise ProviderError("auth", f"인증에 실패했습니다 (HTTP {response.status_code}).")
+            raise ProviderError(
+                "auth",
+                f"인증에 실패했습니다 (HTTP {response.status_code}).",
+                status=response.status_code,
+            )
         if response.status_code >= 400:
             raise ProviderError(
                 "protocol",
                 f"서버가 HTTP {response.status_code} 를 돌려주었습니다: {response.text[:300]}",
+                status=response.status_code,
             )
 
         try:

@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from .limits import DEFAULT_LIMITS, Limits
-from .providers import ModelReply, Provider, ProviderError, ToolRequest
+from .providers import ModelReply, Provider, ProviderError, ToolRequest, is_retryable
 from .session import Recorder
 from .tools import TOOL_DEFINITIONS, TOOL_HANDLERS, TOOL_PRECHECKS, ToolError
 
@@ -177,12 +177,19 @@ class Agent:
                     self.recorder.write(
                         "provider_error",
                         error_kind=error.kind,
+                        status=error.status,
                         message=error.message,
                         attempt=attempt,
                     )
 
-                    # 인증 오류는 다시 물어도 같은 답이 온다.
-                    retryable = error.kind in {"connection", "protocol"}
+                    # 다시 보내서 답이 달라질 오류인지 상태 코드로 가른다.
+                    #
+                    # 2026-09-08 벤치마크: kind 만 보고 "protocol" 을 전부
+                    # 재시도했더니, 컨텍스트 한도를 넘긴 요청(HTTP 400)을
+                    # 두 번 더 보내며 6초를 버렸다. 400 은 요청을 고치지
+                    # 않으면 같은 답이 온다. 반대로 429 는 4xx 지만 기다리면
+                    # 통하므로 번호대로 자르면 안 된다. (is_retryable 참조)
+                    retryable = is_retryable(error)
                     wait = self.limits.provider_retry_backoff_seconds * (2**attempt)
                     # 기다린 뒤 호출할 시간이 남아 있어야 재시도할 값이 있다.
                     room_left = remaining - wait > 20.0

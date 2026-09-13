@@ -250,10 +250,17 @@ class FlakyProvider(FakeProvider):
     name = "flaky"
     timeout_seconds = 300.0
 
-    def __init__(self, replies, fail_times: int, kind: str = "connection") -> None:
+    def __init__(
+        self,
+        replies,
+        fail_times: int,
+        kind: str = "connection",
+        status: int | None = None,
+    ) -> None:
         super().__init__(replies)
         self.fail_times = fail_times
         self.kind = kind
+        self.status = status
         self.call_count = 0
 
     def complete(self, messages, tool_definitions):
@@ -261,7 +268,7 @@ class FlakyProvider(FakeProvider):
 
         self.call_count += 1
         if self.call_count <= self.fail_times:
-            raise ProviderError(self.kind, "일시적인 오류")
+            raise ProviderError(self.kind, "일시적인 오류", status=self.status)
         return super().complete(messages, tool_definitions)
 
 
@@ -326,3 +333,75 @@ def test_retry_is_recorded(work: Path) -> None:
     kinds = [e.get("kind") for e in events_of(work)]
     assert "provider_error" in kinds
     assert "provider_retry" in kinds
+
+
+# ------------------------------------------- 6. 재시도 대상을 상태 코드로 가르기
+#
+# 2026-09-08 벤치마크 피드백: "400/422 같은 수정 없는 재요청과 일시적 연결
+# 오류·429/5xx 를 구분해 재시도 정책을 검증하라."
+#
+# 그전에는 kind 만 봤다. "protocol" 한 이름 아래 400 과 502 가 섞여서,
+# 컨텍스트 한도를 넘긴 요청(400)을 두 번 더 보내며 6초를 버린 기록이 있다
+# (blockchain 문항 8/10 -> 1/10). 번호대로 4xx 를 통째로 제외하는 것도
+# 틀린다 — 429 는 4xx 지만 기다리면 통한다.
+
+import pytest as _pytest
+
+from harness.limits import Limits as _Limits
+from harness.providers import ProviderError, is_retryable
+
+
+@_pytest.mark.parametrize("status", [400, 401, 403, 404, 405, 409, 413, 422])
+def test_requests_that_need_fixing_are_not_retried(status: int) -> None:
+    """고치지 않고 다시 보내면 같은 답이 오는 것들."""
+    assert is_retryable(ProviderError("protocol", "x", status=status)) is False
+
+
+@_pytest.mark.parametrize("status", [408, 429, 500, 502, 503, 504])
+def test_transient_errors_are_retried(status: int) -> None:
+    """기다렸다 보내면 달라질 수 있는 것들. 429 가 여기 들어가는 게 핵심이다."""
+    assert is_retryable(ProviderError("protocol", "x", status=status)) is True
+
+
+def test_connection_error_without_status_is_retried() -> None:
+    """응답 자체가 없었으면 상태 코드도 없다. 다시 해볼 만하다."""
+    assert is_retryable(ProviderError("connection", "끊김")) is True
+
+
+def test_auth_error_is_never_retried_even_with_status() -> None:
+    """인증은 다시 물어도 같은 답이 온다. 상태 코드와 무관하다."""
+    assert is_retryable(ProviderError("auth", "x", status=401)) is False
+
+
+def test_context_overflow_400_ends_without_retrying(work: Path) -> None:
+    """400 을 받으면 재시도 없이 끝난다 — 벤치마크에서 6초를 버린 그 경로다."""
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=9,
+                             kind="protocol", status=400)
+    limits = _Limits(max_provider_retries=2, provider_retry_backoff_seconds=0.01)
+    outcome = make_agent(work, provider, limits=limits).run("해줘")
+
+    assert outcome.state is TaskState.FAILED
+    assert outcome.reason == "provider_protocol"
+    assert provider.call_count == 1          # 첫 호출뿐, 재시도 없음
+
+
+def test_rate_limit_429_is_retried_and_recovers(work: Path) -> None:
+    """429 는 4xx 지만 재시도한다. 번호대로 잘랐다면 여기서 포기했을 것이다."""
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=1,
+                             kind="protocol", status=429)
+    limits = _Limits(max_provider_retries=2, provider_retry_backoff_seconds=0.01)
+    outcome = make_agent(work, provider, limits=limits).run("해줘")
+
+    assert outcome.state is TaskState.COMPLETED
+    assert provider.call_count == 2          # 실패 1 + 성공 1
+
+
+def test_status_is_recorded_for_later_analysis(work: Path) -> None:
+    """상태 코드가 기록에 남아야 나중에 무엇 때문에 끝났는지 가릴 수 있다."""
+    provider = FlakyProvider([ModelReply(text="답")], fail_times=9,
+                             kind="protocol", status=400)
+    limits = _Limits(max_provider_retries=2, provider_retry_backoff_seconds=0.01)
+    make_agent(work, provider, limits=limits).run("해줘")
+
+    errors = [e for e in events_of(work) if e.get("kind") == "provider_error"]
+    assert errors and errors[0]["status"] == 400
